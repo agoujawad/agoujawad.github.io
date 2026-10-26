@@ -1,5 +1,5 @@
 // Vaccin'Assist : fonctionnement hors ligne. Changer VERSION à chaque mise à jour du site.
-const VERSION = 'va-web-1.0-1';
+const VERSION = 'va-app-2';
 const CORE = [
   './', 'index.html', 'manifest.webmanifest',
   'fonts/Alexandria-arabic.woff2',
@@ -18,6 +18,7 @@ const CORE = [
   'icons/icon-512.png',
   'icons/maskable-512.png',
   'img/campagne-allaitement.jpg',
+  'img/campagne-bronchiolite.jpg',
   'img/campagne-depistage.jpg',
   'video/apercu.jpg',
 ];
@@ -28,7 +29,7 @@ self.addEventListener('install', e => {
 
 self.addEventListener('activate', e => {
   e.waitUntil(caches.keys()
-    .then(keys => Promise.all(keys.filter(k => k !== VERSION && k !== 'va-docs').map(k => caches.delete(k))))
+    .then(keys => Promise.all(keys.filter(k => k.startsWith('va-app-') && k !== VERSION && k !== 'va-app-docs').map(k => caches.delete(k))))
     .then(() => self.clients.claim()));
 });
 
@@ -45,7 +46,7 @@ self.addEventListener('fetch', e => {
   }
   if (req.headers.has('range')) return;
   e.respondWith(caches.match(req).then(hit => hit || fetch(req).then(r => {
-    if (r.ok && /\/(docs|video)\//.test(req.url)) { const copy = r.clone(); caches.open('va-docs').then(c => c.put(req, copy)); }
+    if (r.ok && /\/(docs|video)\//.test(req.url)) { const copy = r.clone(); caches.open('va-app-docs').then(c => c.put(req, copy)); }
     return r;
   })));
 });

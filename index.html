@@ -2705,6 +2705,10 @@ renderTdInputs(); renderChild(); renderFemme(); renderTables(); renderCounts(); 
 // ---- Campagnes nationales : affichées après « Commencer », chacune entre ses dates de début et de fin ----
 // Pour ajouter une campagne : une entrée dans CAMPAGNES et son image dans www/img/. Aucune connexion utilisée.
 const CAMPAGNES = [
+  { id:'bronchiolite-2026', debut:'2026-10-19', fin:'2026-12-31', img:'img/campagne-bronchiolite.jpg', pos:'50% 40%', acc:'#c4574a', deep:'#3a1410',
+    quand:'19 oct. 2026 → 19 avr. 2027', titre:'Bronchiolite chez l’enfant de moins de 2 ans', ar:'الحملة الوطنية للتصدي لالتهاب القصيبات الهوائية عند الأطفال دون سن الثانية',
+    msg:'Éviter la fumée et les irritants, garder un environnement propre et bien aéré, éviter le contact avec les malades, se laver les mains régulièrement.',
+    action:'Rappeler ces gestes aux parents des enfants de moins de 2 ans lors de la vaccination.', ico:'#i-baby' },
   { id:'allaitement-2026', debut:'2026-10-20', fin:'2026-11-20', img:'img/campagne-allaitement.jpg', pos:'50% 35%', acc:'#e05592', deep:'#3a0f22',
     quand:'20 oct. → 20 nov. 2026', titre:'Allaitement maternel exclusif', ar:'الحملة الوطنية للتحسيس بأهمية الرضاعة الطبيعية الحصرية',
     msg:'L’allaitement maternel exclusif pendant les six premiers mois suffit à l’enfant.',

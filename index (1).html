@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Assist Apps</title>
+<meta name="description" content="Assist Apps par JawaDev : applications de poche pour les professionnels de santé, réalisées par Jawad Agoujim, infirmier. Gratuites, hors ligne, non officielles.">
+<meta name="theme-color" content="#0d2438">
+<link rel="icon" type="image/jpeg" href="assets/jawadev-avatar.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Italiana&family=Dancing+Script:wght@600&family=Poppins:wght@300;400;500;600;700&family=Alexandria:wght@500&display=swap">
+<style>
+/* Clean medical site: white page, sky-blue and teal, a soft clinical hero with phones showing the real apps, line icons, a teal wave band. */
+:root {
+  --white: #ffffff; --mist: #f2f8fc; --sky: #e3f1fa; --ink: #13304a; --text: #4d6478; --faint: #8aa0b2; --line: #e1ebf2;
+  --teal: #14a3a8; --teal-d: #0b7c83; --blue: #2a8fe0; --blue-d: #1d6fc0; --green: #22b26a;
+  --font: "Poppins", "Segoe UI", system-ui, sans-serif;
+  --arabic: "Alexandria", "Noto Kufi Arabic", "Segoe UI", sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { background: var(--white); scroll-behavior: smooth; }
+body { margin: 0; background: var(--white); color: var(--text); font: 400 1rem/1.65 var(--font); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+.in { max-width: 1040px; margin: 0 auto; padding-left: max(18px, env(safe-area-inset-left, 0px)); padding-right: max(18px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { color: var(--ink); font-family: var(--font); }
+
+/* Bandeau et en-tête */
+.strip { background: var(--teal-d); color: #e6fbfb; font-size: .76rem; text-align: center; padding-block: 7px; padding-top: calc(env(safe-area-inset-top, 0px) + 7px); }
+.strip span { opacity: .9; }
+header { position: sticky; top: 0; padding-top: env(safe-area-inset-top, 0px); z-index: 20; color: #fff;
+  background: radial-gradient(60% 140% at 100% 0%, rgb(20 163 168 / .45), transparent 70%), linear-gradient(110deg, #0d2438, #10405a 55%, #0b6f78);
+  box-shadow: 0 10px 24px -16px rgb(13 36 56 / .8); }
+header .logo b { color: #fff; }
+header .logo img { box-shadow: 0 0 0 2px #0d2438, 0 0 0 4px #5fd6cf, 0 10px 22px -8px rgb(0 0 0 / .6); }
+header nav a { color: rgb(255 255 255 / .9); }
+header nav a:hover { background: rgb(255 255 255 / .12); }
+header .sig { color: #8fe7e1; }
+.bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block: 16px; }
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.logo { gap: 14px; }
+.logo img { width: 62px; height: 62px; border-radius: 18px; object-fit: cover; }
+.logo b { display: block; font-family: "Italiana", "Cormorant Garamond", Georgia, "Times New Roman", serif; font-weight: 400; font-size: 2.3rem; color: var(--ink); line-height: 1; letter-spacing: .02em; }
+@media (max-width: 359px) { .logo { gap: 10px; } .logo img { width: 46px !important; height: 46px !important; border-radius: 14px !important; } .logo b { font-size: 1.7rem !important; } .sig { font-size: 1.1rem; } .feat h3 { font-size: .78rem !important; } }
+@media (max-width: 400px) { .logo img { width: 54px; height: 54px; border-radius: 16px; } .logo b { font-size: 2.05rem; } }
+.sig { font: 600 1.3rem/1 "Dancing Script", "Brush Script MT", cursive; color: var(--teal-d); text-decoration: none; white-space: nowrap; }
+.bar nav { margin-left: auto; }
+nav { display: flex; gap: 4px; }
+nav a { font-size: .74rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink); text-decoration: none; padding: 8px 10px; border-radius: 10px; }
+nav a:hover { background: var(--sky); }
+@media (max-width: 560px) { nav { display: none; } }
+.nav-cta { background: var(--teal); color: #fff !important; }
+
+/* Hero */
+.hero { position: relative; overflow: hidden; background: radial-gradient(70% 90% at 90% 20%, #ffffff 0%, transparent 60%), linear-gradient(180deg, #d8ecf8 0%, #eaf5fb 60%, #ffffff 100%); }
+.bokeh { position: absolute; inset: 0; pointer-events: none; }
+.bokeh i { position: absolute; border-radius: 50%; background: radial-gradient(circle, rgb(255 255 255 / .9), rgb(255 255 255 / 0) 70%); animation: drift 14s ease-in-out infinite alternate; }
+.bokeh i:nth-child(1) { width: 220px; height: 220px; left: -40px; top: 30px; }
+.bokeh i:nth-child(2) { width: 140px; height: 140px; left: 45%; top: -30px; animation-duration: 18s; }
+.bokeh i:nth-child(3) { width: 260px; height: 260px; right: -60px; bottom: 40px; animation-duration: 22s; }
+.bokeh i:nth-child(4) { width: 90px; height: 90px; left: 30%; bottom: 60px; background: radial-gradient(circle, rgb(20 163 168 / .25), transparent 70%); }
+@keyframes drift { to { transform: translate(30px, 24px) scale(1.08); } }
+.ecg { position: absolute; left: 0; right: 0; bottom: 6px; width: 100%; height: 60px; opacity: .35; }
+.ecg path { stroke-dasharray: 1400; stroke-dashoffset: 1400; animation: beat 4.5s linear infinite; }
+@keyframes beat { 0% { stroke-dashoffset: 1400; } 60%, 100% { stroke-dashoffset: 0; } }
+.hero-grid { position: relative; display: grid; gap: 30px; padding-block: 40px 56px; align-items: center; }
+@media (min-width: 820px) { .hero-grid { grid-template-columns: 1.05fr .95fr; padding-block: 64px 80px; } }
+.hello { display: inline-flex; align-items: center; gap: 8px; font-size: .78rem; font-weight: 600; color: var(--teal-d); background: #fff; padding: 6px 14px 6px 6px; border-radius: 999px; box-shadow: 0 8px 20px -14px rgb(19 48 74 / .5); }
+.hello > span { display: grid; line-height: 1.3; }
+.hello-ar { font: 500 .8rem/1.5 var(--arabic); text-align: right; color: var(--teal); }
+.hello { padding-right: 16px; }
+.hello i { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--teal); color: #fff; font-style: normal; font-size: .8rem; }
+.hero h1 { margin: 16px 0 0; font-weight: 600; font-size: clamp(1.7rem, 7vw, 2.8rem); line-height: 1.12; letter-spacing: -.025em; text-wrap: balance; }
+.hero h1 em { font-style: normal; color: var(--blue); }
+.hero .ar { margin: 12px 0 0; font: 500 1.05rem/1.7 var(--arabic); color: var(--teal-d); }
+.hero p.lead { margin: 8px 0 0; max-width: 32rem; font-weight: 300; font-size: 1.02rem; }
+.btns { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 20px; border-radius: 999px; font-weight: 600; font-size: .92rem; text-decoration: none; }
+.btn.main { background: linear-gradient(100deg, var(--teal), var(--blue)); color: #fff; box-shadow: 0 14px 26px -14px var(--blue); }
+.btn.alt { background: #fff; color: var(--ink); border: 1px solid var(--line); }
+
+/* Téléphones */
+.phones { position: relative; height: 430px; max-width: 420px; width: 100%; justify-self: center; }
+.phone { position: absolute; width: 196px; aspect-ratio: 360 / 760; border-radius: 30px; padding: 7px; background: #f7fafc; box-shadow: 0 30px 50px -24px rgb(19 48 74 / .55), inset 0 0 0 1px #dfe7ee; }
+.phone img, .phone .screen { display: block; width: 100%; height: 100%; border-radius: 24px; object-fit: cover; object-position: top; }
+.phone::before { content: ""; position: absolute; top: 12px; left: 50%; width: 52px; height: 6px; margin-left: -26px; border-radius: 9px; background: #dfe7ee; z-index: 1; }
+.p1 { left: 4%; top: 18px; transform: rotate(-7deg); animation: f1 6s ease-in-out infinite; }
+.p2 { right: 4%; top: 0; z-index: 2; animation: f2 6s ease-in-out infinite; }
+@keyframes f1 { 50% { transform: rotate(-7deg) translateY(-10px); } }
+@keyframes f2 { 50% { transform: translateY(10px); } }
+.badge { position: absolute; z-index: 3; left: 0; bottom: 18px; display: flex; align-items: center; gap: 10px; padding: 10px 14px 10px 10px; border-radius: 16px; background: #fff; box-shadow: 0 18px 30px -18px rgb(19 48 74 / .6); font-size: .78rem; line-height: 1.3; color: var(--ink); animation: f2 7s ease-in-out infinite; }
+.badge b { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; background: #e2f7ee; color: var(--green); }
+.badge span small { display: block; color: var(--faint); }
+
+/* Bienvenue + atouts */
+.welcome { text-align: center; padding-block: 56px 40px; }
+.welcome h2 { margin: 0; font-weight: 500; font-size: clamp(1.5rem, 5.5vw, 2.1rem); line-height: 1.25; color: var(--teal-d); }
+.welcome h2 span { display: block; color: var(--blue-d); }
+.welcome p { margin: 12px auto 0; max-width: 36rem; font-weight: 300; }
+.feats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 34px; }
+.feat { display: grid; justify-items: center; gap: 8px; text-align: center; }
+.feat svg { width: 52px; height: 52px; stroke: var(--teal); }
+.feat h3 { margin: 0; font-weight: 600; font-size: .95rem; }
+.feat p { margin: 0; font-size: .78rem; font-weight: 300; line-height: 1.45; }
+
+/* Applications */
+.apps { padding-block: 20px 56px; }
+.sec-t { text-align: center; margin: 0 0 6px; font-weight: 600; font-size: clamp(1.4rem, 5vw, 1.9rem); }
+.sec-s { text-align: center; margin: 0 0 26px; font-weight: 300; }
+.list { display: grid; gap: 18px; }
+@media (min-width: 820px) { .list { grid-template-columns: 1fr 1fr; } }
+.app { --c: var(--teal); display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 18px; align-items: center; padding: 18px; border-radius: 26px; background: var(--mist); border: 1px solid var(--line); text-decoration: none; color: inherit; transition: transform .25s ease, box-shadow .25s ease; }
+a.app:hover { transform: translateY(-3px); box-shadow: 0 20px 36px -24px rgb(19 48 74 / .45); }
+.mini { position: relative; width: 112px; aspect-ratio: 360 / 760; border-radius: 20px; padding: 5px; background: #fff; box-shadow: 0 16px 28px -18px rgb(19 48 74 / .6), inset 0 0 0 1px #dfe7ee; }
+.mini img, .mini .screen { display: block; width: 100%; height: 100%; border-radius: 16px; object-fit: cover; object-position: top; }
+.screen.pf { display: grid; place-items: center; align-content: center; gap: 10px; background: linear-gradient(170deg, #ff8a65, #c2457c 55%, #3a1748); color: #fff; text-align: center; font-size: .62rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
+.screen.pf img { width: 46%; height: auto; border-radius: 22%; box-shadow: 0 10px 18px -10px rgb(0 0 0 / .6); }
+.phone .screen.pf { font-size: .8rem; }
+.app .head { display: flex; align-items: center; gap: 10px; }
+.app .head img { width: 42px; height: 42px; border-radius: 12px; }
+.app h3 { margin: 0; font-weight: 600; font-size: 1.2rem; line-height: 1.2; }
+.app .tag { display: inline-block; font-size: .68rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--c); }
+.app p { margin: 10px 0 12px; font-size: .88rem; font-weight: 300; line-height: 1.5; }
+.go { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 999px; background: var(--c); color: #fff; font-weight: 600; font-size: .85rem; }
+.soon { --c: #c2457c; }
+.soon .go { background: #fbe9f0; color: #a63a69; }
+
+/* Bande turquoise */
+.band { position: relative; color: #fff; background: linear-gradient(120deg, #11a3a8, #2a8fe0); }
+.band svg.w { display: block; width: 100%; height: 46px; }
+.band .w.top { position: absolute; top: -45px; left: 0; }
+.band .in { padding-block: 22px 44px; text-align: center; }
+.band h2 { margin: 0; color: #fff; font-weight: 600; font-size: clamp(1.35rem, 5vw, 1.9rem); }
+.band p.s { margin: 6px 0 22px; opacity: .9; font-weight: 300; }
+.steps { display: grid; gap: 10px; text-align: left; max-width: 720px; margin: 0 auto; }
+@media (min-width: 720px) { .steps { grid-template-columns: repeat(3, 1fr); } }
+.step { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 12px; align-items: center; padding: 14px; border-radius: 18px; background: rgb(255 255 255 / .14); border: 1px solid rgb(255 255 255 / .25); font-size: .86rem; line-height: 1.45; }
+.step b { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: #fff; color: var(--teal-d); font-weight: 700; }
+
+/* Auteur et pied */
+.about { padding-block: 56px 30px; }
+.card { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 18px; align-items: center; max-width: 720px; margin: 0 auto; padding: 18px; border-radius: 26px; background: var(--mist); border: 1px solid var(--line); }
+.card img { width: 110px; height: 110px; border-radius: 22px; object-fit: cover; }
+.card small { font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--teal); font-weight: 600; }
+.card h3 { margin: 2px 0 4px; font-weight: 600; font-size: 1.2rem; }
+.card p { margin: 0; font-size: .88rem; font-weight: 300; line-height: 1.5; }
+footer { border-top: 1px solid var(--line); text-align: center; font-size: .78rem; color: var(--faint); padding-block: 20px; padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 22px); }
+footer p { margin: 0 auto; max-width: 34rem; }
+footer .motto { margin-bottom: 8px; font-size: .8rem; font-weight: 600; letter-spacing: .02em; color: var(--teal-d); }
+
+
+.steth { position: absolute; right: -40px; top: 24px; width: 230px; height: auto; opacity: .22; transform: rotate(14deg); }
+@media (min-width: 820px) { .steth { right: 2%; top: 40px; width: 300px; opacity: .3; } }
+.steth .tube { stroke-dasharray: 700; stroke-dashoffset: 700; animation: draw 3.2s ease forwards .3s; }
+.steth .chest { transform-origin: 44px 300px; animation: swing 5s ease-in-out infinite 3s; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes swing { 50% { transform: rotate(8deg); } }
+/* Téléphone : page courte */
+@media (max-width: 819px) {
+  .phones { display: none; }
+  .hero-grid { padding-block: 26px 40px; gap: 0; }
+  .hero h1 { margin-top: 12px; font-size: clamp(1.5rem, 6.4vw, 2rem); }
+  .btns { margin-top: 18px; gap: 8px; }
+  .btn { padding: 11px 16px; font-size: .86rem; }
+  .apps { padding-block: 34px 30px; }
+  .sec-s { margin-bottom: 18px; }
+  .list { gap: 12px; }
+  .app { grid-template-columns: 78px minmax(0, 1fr); gap: 14px; padding: 14px; border-radius: 22px; }
+  .mini { width: 78px; border-radius: 16px; padding: 4px; }
+  .mini img, .mini .screen { border-radius: 12px; }
+  .app .head img { width: 34px; height: 34px; border-radius: 10px; }
+  .app h3 { font-size: 1.08rem; }
+  .app p { margin: 6px 0 10px; font-size: .84rem; }
+  .go { padding: 8px 14px; font-size: .8rem; }
+  .welcome { padding-block: 10px 56px; }
+  .welcome h2 { font-size: 1.3rem; }
+  .band h2 { font-size: 1.25rem; }
+  .welcome p { font-size: .92rem; }
+  .feats { margin-top: 20px; gap: 8px; }
+  .feat svg { width: 40px; height: 40px; }
+  .feat p { display: none; }
+  .band .in { padding-block: 14px 30px; }
+  .band p.s { margin-bottom: 14px; font-size: .9rem; }
+  .steps { gap: 8px; }
+  .step { padding: 10px 12px; grid-template-columns: 30px minmax(0, 1fr); font-size: .82rem; }
+  .step b { width: 30px; height: 30px; }
+  .about { padding-block: 30px 22px; }
+  .card { grid-template-columns: 72px minmax(0, 1fr); gap: 14px; padding: 14px; border-radius: 22px; }
+  .card img { width: 72px; height: 72px; border-radius: 16px; }
+  .card h3 { font-size: 1.08rem; }
+  .card p { font-size: .84rem; }
+}
+/* Apparition au défilement */
+.rv { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
+.rv.on { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .rv { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="in bar">
+    <a class="logo" href="./"><img src="assets/jawadev-avatar.jpg" alt=""><b>Assist Apps</b></a>
+    <nav><a href="#apps">Applications</a><a href="#installer">Installer</a><a href="#auteur">À propos</a></nav>
+    <a class="sig" href="#auteur">par JawaDev</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="bokeh" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <svg class="steth" viewBox="0 0 300 420" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <g stroke="#0b7c83" stroke-width="9">
+      <path class="tube" d="M88 20 C70 60 66 110 92 150 C110 178 130 186 150 186 C170 186 190 178 208 150 C234 110 230 60 212 20"/>
+      <path class="tube" d="M150 186 V232 C150 300 120 330 90 336 C60 342 40 322 44 298"/>
+    </g>
+    <g fill="#0b7c83"><circle cx="88" cy="18" r="9"/><circle cx="212" cy="18" r="9"/></g>
+    <circle cx="150" cy="186" r="7" fill="#14a3a8"/>
+    <g class="chest"><circle cx="44" cy="300" r="34" fill="#e8f6f8" stroke="#0b7c83" stroke-width="8"/><circle cx="44" cy="300" r="20" fill="#fff" stroke="#14a3a8" stroke-width="4"/><circle cx="44" cy="300" r="6" fill="#14a3a8"/></g>
+  </svg>
+  <svg class="ecg" viewBox="0 0 1200 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0 40 H420 L440 40 L455 12 L470 70 L486 22 L498 40 H760 L776 40 L788 18 L800 62 L812 40 H1200" fill="none" stroke="#14a3a8" stroke-width="2"/></svg>
+  <div class="in hero-grid">
+    <div class="rv">
+      <span class="hello"><i>+</i><span>Bienvenue sur Assist Apps<span class="hello-ar" lang="ar" dir="rtl">مرحباً بكم في Assist Apps</span></span></span>
+      <h1>Vos outils de santé, <em>toujours dans votre poche.</em></h1>
+      <p class="ar" dir="rtl" lang="ar">أدوات رقمية بسيطة في خدمة مهنيي الصحة</p>
+      <p class="lead">Des applications claires, rapides et gratuites pour les professionnels de santé, même sans connexion.</p>
+      <div class="btns"><a class="btn main" href="#apps">Découvrir les applications →</a><a class="btn alt" href="#installer">Comment installer</a></div>
+    </div>
+    <div class="phones rv" aria-hidden="true">
+      <div class="phone p1"><img src="assets/va-splash.jpg" alt=""></div>
+      <div class="phone p2"><img src="assets/va-home.jpg" alt=""></div>
+      <div class="badge"><b>✓</b><span>Fonctionne hors ligne<small>Aucune donnée collectée</small></span></div>
+    </div>
+  </div>
+</section>
+
+<section class="in apps" id="apps">
+  <h2 class="sec-t rv">Les applications</h2>
+  <p class="sec-s rv">Sur Android et iPhone, depuis le navigateur.</p>
+  <div class="list">
+    <a class="app rv" href="vaccinassist/">
+      <div class="mini"><img src="assets/va-home.jpg" alt="Écran de Vaccin’Assist"></div>
+      <div>
+        <div class="head"><img src="vaccinassist/icons/icon-192.png" alt=""><div><span class="tag">Vaccination · PNI</span><h3>Vaccin’Assist</h3></div></div>
+        <p>Routine, rattrapage, contre-indications, MAPI, chaîne du froid et supplémentation, selon le calendrier national.</p>
+        <span class="go">Ouvrir l’application →</span>
+      </div>
+    </a>
+    <div class="app soon rv" aria-disabled="true">
+      <div class="mini"><div class="screen pf"><img src="assets/pf-assist-192.png" alt="">Bientôt</div></div>
+      <div>
+        <div class="head"><img src="assets/pf-assist-192.png" alt=""><div><span class="tag">Planification familiale</span><h3>PF’Assist</h3></div></div>
+        <p>Un guide de poche pour le conseil et les méthodes de planification familiale.</p>
+        <span class="go">En préparation</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="in welcome">
+  <h2 class="rv">Des outils pensés par un soignant <span>pour les professionnels de santé</span></h2>
+  <p class="rv">Chaque application s’appuie sur les références nationales et reste simple à utiliser au quotidien.</p>
+  <div class="feats">
+    <div class="feat rv"><svg viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="13" y="4" width="22" height="40" rx="4"/><path d="M21 38h6"/><path d="M19 18l4 4 7-8"/></svg><h3>Gratuites</h3><p>Sans publicité ni abonnement</p></div>
+    <div class="feat rv"><svg viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18a26 26 0 0 1 36 0"/><path d="M12 25a17 17 0 0 1 24 0"/><path d="M18 32a8 8 0 0 1 12 0"/><circle cx="24" cy="38" r="2"/><path d="M8 8l32 32"/></svg><h3>Hors ligne</h3><p>Utilisables sans internet</p></div>
+    <div class="feat rv"><svg viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 4l16 6v12c0 10-7 18-16 22C15 40 8 32 8 22V10z"/><path d="M17 24l5 5 9-10"/></svg><h3>Confidentielles</h3><p>Aucune donnée enregistrée</p></div>
+  </div>
+</section>
+
+<section class="band" id="installer">
+  <svg class="w top" viewBox="0 0 1200 46" preserveAspectRatio="none" aria-hidden="true"><path d="M0 46 C300 0 900 0 1200 46 Z" fill="#11a3a8"/></svg>
+  <div class="in">
+    <h2 class="rv">Installez l’application sur votre téléphone</h2>
+    <p class="s rv">Une icône sur l’écran d’accueil, comme une application classique.</p>
+    <div class="steps">
+      <div class="step rv"><b>1</b><span>Ouvrez l’application depuis cette page.</span></div>
+      <div class="step rv"><b>2</b><span>Android : menu ⋮ de Chrome, puis «&nbsp;Installer l’application&nbsp;».</span></div>
+      <div class="step rv"><b>3</b><span>iPhone : bouton Partager de Safari, puis «&nbsp;Sur l’écran d’accueil&nbsp;».</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="in about" id="auteur">
+  <div class="card rv">
+    <img src="assets/jawadev.jpg" alt="Portrait illustré de Jawad Agoujim">
+    <div><small>Créé par JawaDev</small><h3>Jawad Agoujim</h3><p>Infirmier polyvalent et développeur. Des applications nées des besoins réels des professionnels de santé.</p></div>
+  </div>
+</section>
+
+<footer>
+  <div class="in"><p class="motto">Gratuit · Hors ligne · Pour les professionnels de santé</p><p>Applications personnelles et non officielles. Elles ne remplacent ni les guides officiels ni l’avis médical.</p></div>
+</footer>
+
+<script>
+(() => {
+  const els = document.querySelectorAll('.rv');
+  if (!('IntersectionObserver' in window)) { els.forEach(e => e.classList.add('on')); return; }
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } }), { threshold: .12 });
+  els.forEach((e, i) => { e.style.transitionDelay = (i % 4) * 90 + 'ms'; io.observe(e); });
+})();
+</script>
+</body>
+</html>
