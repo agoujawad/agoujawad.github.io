@@ -2599,14 +2599,16 @@ const SITE = 'https://assist-apps.ma/';
 const SITE_ICON = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMGQyNDM4Ii8+PHN0b3Agb2Zmc2V0PSIuNTUiIHN0b3AtY29sb3I9IiMxMDQwNWEiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwYjZmNzgiLz48L2xpbmVhckdyYWRpZW50Pgo8cmFkaWFsR3JhZGllbnQgaWQ9InIiIGN4PSIxIiBjeT0iMCIgcj0iLjkiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzE0YTNhOCIgc3RvcC1vcGFjaXR5PSIuNTUiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMxNGEzYTgiIHN0b3Atb3BhY2l0eT0iMCIvPjwvcmFkaWFsR3JhZGllbnQ+CjxsaW5lYXJHcmFkaWVudCBpZD0ibCIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2UzZjdmNSIvPjwvbGluZWFyR3JhZGllbnQ+CjwvZGVmcz48cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjExMiIgZmlsbD0idXJsKCNnKSIvPjxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiByeD0iMTEyIiBmaWxsPSJ1cmwoI3IpIi8+PHBhdGggZD0iTTEzNiA0MDQgMjU2IDEwOCAzNzYgNDA0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMzAiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjxwYXRoIGQ9Ik05NiAzMDBoOTZsMjgtNTIgMzYgOTYgMzItNzAgMTggMjZoMTEwIiBmaWxsPSJub25lIiBzdHJva2U9IiM1ZmQ2Y2YiIHN0cm9rZS13aWR0aD0iMjQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==';
 const siteLink = (href, t, s, mini) => `<a class="site-link${mini ? ' mini' : ''}" href="${href}" target="_blank" rel="noopener"><img class="sl-i" src="${SITE_ICON}" alt=""><b>${t}</b><small>${s}</small><span class="sl-go">Visiter</span></a>`;
 // Annonce : changer id pour publier une nouvelle annonce (chaque id ne s'affiche qu'une fois).
-const ANNONCE = { id:'archive-documents', t:'Nouveau : l’archive Assist Apps', s:'Guides et documents du PNI à télécharger sur assist-apps.ma.', href: SITE + 'documents/' };
+const ANNONCE = { id:'chaine-whatsapp-rejointe', t:'Rejoignez la chaîne WhatsApp Assist Apps', s:'Recevez chaque nouveauté : mises à jour de l’application, guides et documents.', href:'https://whatsapp.com/channel/0029VbDaOmPDzgTCguBSj12s', go:'Rejoindre', toujours:true, icon:'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0NiA0NiI+PHJlY3Qgd2lkdGg9IjQ2IiBoZWlnaHQ9IjQ2IiByeD0iMTQiIGZpbGw9IiMyNWQzNjYiLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMCAxMCkgc2NhbGUoMS4wODMpIiBmaWxsPSIjZmZmIj48cGF0aCBkPSJNMTIgMmExMCAxMCAwIDAgMC04LjYgMTUuMUwyIDIybDUtMS4zQTEwIDEwIDAgMSAwIDEyIDJ6bTAgMTguMmE4LjIgOC4yIDAgMCAxLTQuMi0xLjJsLS4zLS4yLTMgLjguOC0yLjktLjItLjNBOC4yIDguMiAwIDEgMSAxMiAyMC4yem00LjUtNi4xYy0uMi0uMS0xLjUtLjctMS43LS44LS4yLS4xLS40LS4xLS42LjFsLS44IDFjLS4xLjItLjMuMi0uNS4xYTYuNyA2LjcgMCAwIDEtMy4zLTIuOWMtLjMtLjQuMi0uNC43LTEuMy4xLS4yIDAtLjMgMC0uNGwtLjgtMS44Yy0uMi0uNS0uNC0uNC0uNi0uNGgtLjVhMSAxIDAgMCAwLS43LjMgMyAzIDAgMCAwLS45IDIuMiA1LjIgNS4yIDAgMCAwIDEuMSAyLjcgMTEuOCAxMS44IDAgMCAwIDQuNSA0YzEuNy43IDIuMy44IDMuMi43LjUtLjEgMS41LS42IDEuNy0xLjIuMi0uNi4yLTEuMS4yLTEuMi0uMS0uMS0uMy0uMi0uNS0uM3oiLz48L2c+PC9zdmc+' };
 (function annonce() {
   const KEY = 'va-annonce-vue', box = $('#annonce');
   let vue = ''; try { vue = localStorage.getItem(KEY) || ''; } catch {}
   if (!ANNONCE || vue === ANNONCE.id) return;
-  const done = () => { box.hidden = true; try { localStorage.setItem(KEY, ANNONCE.id); } catch {} };
-  $('#an-i').src = SITE_ICON; $('#an-t').textContent = ANNONCE.t; $('#an-s').textContent = ANNONCE.s; $('#an-go').href = ANNONCE.href;
-  $('#an-later').addEventListener('click', done); $('#an-go').addEventListener('click', done);
+  const hide = () => { box.hidden = true; };
+  const done = () => { hide(); try { localStorage.setItem(KEY, ANNONCE.id); } catch {} };
+  $('#an-i').src = ANNONCE.icon || SITE_ICON; if (ANNONCE.go) $('#an-go').textContent = ANNONCE.go; $('#an-t').textContent = ANNONCE.t; $('#an-s').textContent = ANNONCE.s; $('#an-go').href = ANNONCE.href;
+  // « Plus tard » ferme pour cette ouverture seulement (ANNONCE.toujours) ; « Rejoindre » ne la montre plus.
+  $('#an-later').addEventListener('click', ANNONCE.toujours ? hide : done); $('#an-go').addEventListener('click', done);
   function show(tries = 0) {
     const busy = ['#splash', '#updfs', '#camp', '#vidov', '#exitdlg', '#more', '#search'].some(s => $(s) && !$(s).hidden) || !$('#upd').hidden;
     if (busy) { if (tries < 40) setTimeout(() => show(tries + 1), 1500); return; }
@@ -2671,6 +2673,7 @@ const CONTACT = {
   whatsapp: '212662594206',
   email: 'agou.jawad@gmail.com',
   facebook: 'https://www.facebook.com/share/19k3DX6xeG/',
+  chaine: 'https://whatsapp.com/channel/0029VbDaOmPDzgTCguBSj12s',
 };
 function renderAbout() {
   const C = CONTACT;
@@ -2678,6 +2681,7 @@ function renderAbout() {
   const fmtWa = n => n ? '+' + n.replace(/^(\d{3})(\d)(\d{2})(\d{2})(\d{2})(\d{2})$/, '$1 $2 $3 $4 $5 $6') : '';
   const rows = [
     { k:'whatsapp', ic:'phone', bg:'linear-gradient(135deg,#25d366,#128c4a)', l:'WhatsApp', v:fmtWa(C.whatsapp), href: C.whatsapp && 'https://wa.me/' + C.whatsapp, go:'Écrire' },
+    { k:'chaine', ic:'bell', bg:'linear-gradient(135deg,#25d366,#0a8f6a)', l:'Chaîne WhatsApp', v:C.chaine && 'Nouveautés Assist Apps', href: C.chaine, go:'Rejoindre' },
     { k:'email', ic:'mail', bg:'linear-gradient(135deg,#5b7c99,#33506e)', l:'E-mail', v:C.email, href: C.email && 'mailto:' + C.email, go:'Écrire' },
     { k:'facebook', ic:'fb', bg:'linear-gradient(135deg,#3b82f6,#1d4ed8)', l:'Facebook', v:C.facebook && 'Notre page Facebook', href: C.facebook, go:'Ouvrir' },
   ];
