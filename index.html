@@ -6,7 +6,10 @@
 <title>Assist Apps</title>
 <meta name="description" content="Assist Apps par JawaDev : applications de poche pour les professionnels de santé, réalisées par Jawad Agoujim, infirmier. Gratuites, hors ligne, non officielles.">
 <meta name="theme-color" content="#0d2438">
-<link rel="icon" type="image/jpeg" href="assets/jawadev-avatar.jpg">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="48x48" href="assets/favicon-48.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta property="og:image" content="https://assist-apps.ma/assets/assist-apps-partage.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Italiana&family=Dancing+Script:wght@600&family=Poppins:wght@300;400;500;600;700&family=Alexandria:wght@500&display=swap">
@@ -28,22 +31,27 @@ h1, h2, h3 { color: var(--ink); font-family: var(--font); }
 /* Bandeau et en-tête */
 .strip { background: var(--teal-d); color: #e6fbfb; font-size: .76rem; text-align: center; padding-block: 7px; padding-top: calc(env(safe-area-inset-top, 0px) + 7px); }
 .strip span { opacity: .9; }
-header { position: sticky; top: 0; padding-top: env(safe-area-inset-top, 0px); z-index: 20; color: #fff;
-  background: radial-gradient(60% 140% at 100% 0%, rgb(20 163 168 / .45), transparent 70%), linear-gradient(110deg, #0d2438, #10405a 55%, #0b6f78);
-  box-shadow: 0 10px 24px -16px rgb(13 36 56 / .8); }
+header { position: sticky; top: 0; padding-top: env(safe-area-inset-top, 0px); z-index: 20; color: var(--ink);
+  background: linear-gradient(180deg, #e7f1f6, #d8ecf8);
+  box-shadow: inset 0 -3px 0 var(--teal), 0 10px 24px -18px rgb(13 36 56 / .5); }
 header .logo b { color: #fff; }
 header .logo img { box-shadow: 0 0 0 2px #0d2438, 0 0 0 4px #5fd6cf, 0 10px 22px -8px rgb(0 0 0 / .6); }
-header nav a { color: rgb(255 255 255 / .9); }
-header nav a:hover { background: rgb(255 255 255 / .12); }
-header .sig { color: #8fe7e1; }
+header nav a { color: var(--ink); }
+header nav a:hover { background: rgb(255 255 255 / .7); }
+header .sig { color: #8fe7e1; background: linear-gradient(110deg, #0d2438, #0b6f78); padding: 9px 14px; border-radius: 999px; box-shadow: 0 6px 16px -8px rgb(13 36 56 / .6); }
 .bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block: 16px; }
 .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
 .logo { gap: 14px; }
 .logo img { width: 62px; height: 62px; border-radius: 18px; object-fit: cover; }
-.logo b { display: block; font-family: "Italiana", "Cormorant Garamond", Georgia, "Times New Roman", serif; font-weight: 400; font-size: 2.3rem; color: var(--ink); line-height: 1; letter-spacing: .02em; }
-@media (max-width: 359px) { .logo { gap: 10px; } .logo img { width: 46px !important; height: 46px !important; border-radius: 14px !important; } .logo b { font-size: 1.7rem !important; } .sig { font-size: 1.1rem; } .feat h3 { font-size: .78rem !important; } }
-@media (max-width: 400px) { .logo img { width: 54px; height: 54px; border-radius: 16px; } .logo b { font-size: 2.05rem; } }
-.sig { font: 600 1.3rem/1 "Dancing Script", "Brush Script MT", cursive; color: var(--teal-d); text-decoration: none; white-space: nowrap; }
+.logo b { display: block; font-family: "Italiana", "Cormorant Garamond", Georgia, "Times New Roman", serif; font-weight: 400; font-size: clamp(1.45rem, 8.2vw, 2.3rem); white-space: nowrap; color: var(--ink); line-height: 1; letter-spacing: .02em; }
+@media (max-width: 359px) { .logo { gap: 10px; } .logo img { width: 46px !important; height: 46px !important; border-radius: 14px !important; } .sig { font-size: 1.1rem; } .feat h3 { font-size: .78rem !important; } }
+@media (max-width: 400px) { .logo img { width: 54px; height: 54px; border-radius: 16px; } }
+header .logo img.wm { height: clamp(40px, 13vw, 58px) !important; width: auto !important; border-radius: 0 !important; box-shadow: none !important; object-fit: contain; }
+.sig { font: 600 clamp(.95rem, 5vw, 1.3rem)/1 "Dancing Script", "Brush Script MT", cursive; color: var(--teal-d); text-decoration: none; white-space: nowrap; }
+.sig { display: flex; align-items: center; gap: 6px; }
+.sig span { font: 400 .8rem/1 Poppins, sans-serif; color: #bfe9e6; }
+.sig img { height: clamp(14px, 4.4vw, 22px); width: auto; display: block; }
+@media (max-width: 359px) { .sig span { display: none; } }
 .bar nav { margin-left: auto; }
 nav { display: flex; gap: 4px; }
 nav a { font-size: .74rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink); text-decoration: none; padding: 8px 10px; border-radius: 10px; }
@@ -92,6 +100,25 @@ nav a:hover { background: var(--sky); }
 .badge b { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; background: #e2f7ee; color: var(--green); }
 .badge span small { display: block; color: var(--faint); }
 
+/* Archive de documents */
+.arch { padding-block: 0 40px; }
+.archcard { display: grid; grid-template-columns: minmax(0, 1fr) 220px; gap: 20px; align-items: center; padding: 22px; border-radius: 26px; text-decoration: none; color: inherit; background: linear-gradient(135deg, #e7f6f6, #e3f1fa); border: 1px solid var(--line); overflow: hidden; transition: transform .25s ease, box-shadow .25s ease; }
+.archcard:hover { transform: translateY(-3px); box-shadow: 0 20px 36px -24px rgb(19 48 74 / .45); }
+.archcard .tag { display: inline-block; font-size: .68rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--teal-d); }
+.archcard h2 { margin: 4px 0 0; font-weight: 600; font-size: clamp(1.25rem, 5vw, 1.6rem); }
+.archcard p { margin: 8px 0 14px; font-size: .88rem; font-weight: 300; line-height: 1.5; }
+.archcard .go { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 999px; background: var(--teal); color: #fff; font-weight: 600; font-size: .85rem; }
+.archstack { position: relative; height: 170px; }
+.archstack img { position: absolute; top: 10px; width: 118px; aspect-ratio: 4 / 5; object-fit: cover; object-position: top; border-radius: 12px; border: 3px solid #fff; box-shadow: 0 14px 26px -14px rgb(19 48 74 / .6); }
+.archstack .pdf { position: absolute; top: 10px; width: 108px; aspect-ratio: 3 / 4; border-radius: 10px; background: #fff; border: 3px solid #fff; box-shadow: 0 14px 26px -14px rgb(19 48 74 / .6); display: grid; align-content: start; gap: 7px; padding: 26px 14px 0; overflow: hidden; }
+.archstack .pdf::before { content: ""; position: absolute; inset: 0 0 auto; height: 14px; background: var(--c, #2a8fe0); }
+.archstack .pdf i { display: block; height: 5px; border-radius: 4px; background: #e6eef4; }
+.archstack .pdf b { position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%); background: #d93b30; color: #fff; font-size: .6rem; font-weight: 700; padding: 1px 7px; border-radius: 5px; }
+.archstack .pdf:nth-child(1) { left: 4px; transform: rotate(-9deg); --c: #e39a17; }
+.archstack .pdf:nth-child(2) { left: 52px; transform: rotate(-1deg); top: 2px; --c: #1aa6c9; }
+.archstack img:nth-child(3) { left: 98px; transform: rotate(10deg); top: 14px; }
+@media (max-width: 560px) { .archcard { grid-template-columns: minmax(0, 1fr); } .archstack { height: 150px; order: -1; width: 220px; margin: 0 auto; } }
+
 /* Bienvenue + atouts */
 .welcome { text-align: center; padding-block: 56px 40px; }
 .welcome h2 { margin: 0; font-weight: 500; font-size: clamp(1.5rem, 5.5vw, 2.1rem); line-height: 1.25; color: var(--teal-d); }
@@ -139,11 +166,13 @@ a.app:hover { transform: translateY(-3px); box-shadow: 0 20px 36px -24px rgb(19 
 
 /* Auteur et pied */
 .about { padding-block: 56px 30px; }
-.card { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 18px; align-items: center; max-width: 720px; margin: 0 auto; padding: 18px; border-radius: 26px; background: var(--mist); border: 1px solid var(--line); }
-.card img { width: 110px; height: 110px; border-radius: 22px; object-fit: cover; }
+.card { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 18px; align-items: center; max-width: 720px; margin: 0 auto; padding: 18px; border-radius: 26px; background: var(--mist); border: 1px solid var(--line); }
+.card img { width: 150px; height: 150px; border-radius: 26px; object-fit: cover; }
 .card small { font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--teal); font-weight: 600; }
 .card h3 { margin: 2px 0 4px; font-weight: 600; font-size: 1.2rem; }
 .card p { margin: 0; font-size: .88rem; font-weight: 300; line-height: 1.5; }
+.card h3.nom { margin: 6px 0 8px; font-family: "Italiana", "Cormorant Garamond", Georgia, serif; font-weight: 400; font-size: clamp(1.15rem, 5.4vw, 1.6rem); text-transform: uppercase; letter-spacing: .16em; line-height: 1.15; color: var(--ink); }
+@media (max-width: 359px) { .card h3.nom { font-size: 1.02rem; letter-spacing: .09em; white-space: nowrap; } }
 footer { border-top: 1px solid var(--line); text-align: center; font-size: .78rem; color: var(--faint); padding-block: 20px; padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 22px); }
 footer p { margin: 0 auto; max-width: 34rem; }
 footer .motto { margin-bottom: 8px; font-size: .8rem; font-weight: 600; letter-spacing: .02em; color: var(--teal-d); }
@@ -185,8 +214,8 @@ footer .motto { margin-bottom: 8px; font-size: .8rem; font-weight: 600; letter-s
   .step { padding: 10px 12px; grid-template-columns: 30px minmax(0, 1fr); font-size: .82rem; }
   .step b { width: 30px; height: 30px; }
   .about { padding-block: 30px 22px; }
-  .card { grid-template-columns: 72px minmax(0, 1fr); gap: 14px; padding: 14px; border-radius: 22px; }
-  .card img { width: 72px; height: 72px; border-radius: 16px; }
+  .card { grid-template-columns: clamp(92px, 29vw, 118px) minmax(0, 1fr); gap: 14px; padding: 14px; border-radius: 22px; }
+  .card img { width: clamp(92px, 29vw, 118px); height: clamp(92px, 29vw, 118px); border-radius: 20px; }
   .card h3 { font-size: 1.08rem; }
   .card p { font-size: .84rem; }
 }
@@ -199,9 +228,9 @@ footer .motto { margin-bottom: 8px; font-size: .8rem; font-weight: 600; letter-s
 <body>
 <header>
   <div class="in bar">
-    <a class="logo" href="./"><img src="assets/jawadev-avatar.jpg" alt=""><b>Assist Apps</b></a>
-    <nav><a href="#apps">Applications</a><a href="#installer">Installer</a><a href="#auteur">À propos</a></nav>
-    <a class="sig" href="#auteur">par JawaDev</a>
+    <a class="logo" href="./"><img src="assets/favicon.svg" alt=""><img class="wm" src="assets/assist-apps-wordmark-noir.png" alt="Assist Apps"></a>
+    <nav><a href="#apps">Applications</a><a href="documents/">Documents</a><a href="#installer">Installer</a><a href="#auteur">À propos</a></nav>
+    <a class="sig" href="#auteur"><span>par</span><img src="assets/jawadev-logo.png" alt="JawaDev"></a>
   </div>
 </header>
 
@@ -256,6 +285,22 @@ footer .motto { margin-bottom: 8px; font-size: .8rem; font-weight: 600; letter-s
   </div>
 </section>
 
+<section class="in arch" id="documents">
+  <a class="archcard rv" href="documents/">
+    <div class="archtxt">
+      <span class="tag">Nouveau · Archive</span>
+      <h2>Documents à télécharger</h2>
+      <p>Nos guides pratiques et les documents du Programme National d’Immunisation, classés par dossier : calendrier, rattrapage, chaîne du froid, supplémentation…</p>
+      <span class="go">Ouvrir l’archive →</span>
+    </div>
+    <div class="archstack" aria-hidden="true">
+      <span class="pdf"><i></i><i></i><i></i><b>PDF</b></span>
+      <span class="pdf"><i></i><i></i><i></i><b>PDF</b></span>
+      <img src="documents/apercus/guide-rattrapage-vaccinal.jpg" alt="">
+    </div>
+  </a>
+</section>
+
 <section class="in welcome">
   <h2 class="rv">Des outils pensés par un soignant <span>pour les professionnels de santé</span></h2>
   <p class="rv">Chaque application s’appuie sur les références nationales et reste simple à utiliser au quotidien.</p>
@@ -282,7 +327,7 @@ footer .motto { margin-bottom: 8px; font-size: .8rem; font-weight: 600; letter-s
 <section class="in about" id="auteur">
   <div class="card rv">
     <img src="assets/jawadev.jpg" alt="Portrait illustré de Jawad Agoujim">
-    <div><small>Créé par JawaDev</small><h3>Jawad Agoujim</h3><p>Infirmier polyvalent et développeur. Des applications nées des besoins réels des professionnels de santé.</p></div>
+    <div><small>Créé par&nbsp;:</small><h3 class="nom">Jawad Agoujim</h3><p>Infirmier polyvalent dans la province de Figuig, j’ai voulu mettre la technologie au service de la santé. Chaque application Assist Apps naît d’un besoin réel vécu sur le terrain, avec un but simple&nbsp;: alléger le quotidien des équipes soignantes pour qu’elles se consacrent à l’essentiel, le patient.</p></div>
   </div>
 </section>
 

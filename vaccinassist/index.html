@@ -385,6 +385,18 @@ section[role=tabpanel] > * , #prat-vax > *, #secu-vax > *, #docs-list .doc { scr
 @media (max-width: 440px) { .offline { display: none; } .brandrow { gap: 10px; } .hacts { margin-left: auto; } .hbtn { height: 26px; font-size: .68rem; padding: 0 9px 0 8px; } }
 @keyframes flash { 0%, 35% { box-shadow: 0 0 0 3px var(--grad-b), var(--shadow); } 100% { box-shadow: 0 0 0 0 transparent, var(--shadow); } }
 
+/* ---------- Questions fréquentes ---------- */
+.device[data-screen="faq"] { --grad-a: #19b5a8; --grad-b: #0b7f86; --grad-c: #0d4a5c; }
+.faqlist { display: grid; gap: 10px; }
+details.faq { padding: 0; display: block; }
+details.faq summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px; padding: 14px 16px; }
+details.faq summary::-webkit-details-marker { display: none; }
+details.faq summary h3 { margin: 0; font-size: .95rem; flex: 1; min-width: 0; }
+details.faq summary::after { content: "+"; flex: none; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; color: #fff; background: var(--grad-b); transition: transform .2s; }
+details.faq[open] summary::after { transform: rotate(45deg); }
+details.faq p { margin: 0; padding: 0 16px 14px; font-size: .88rem; }
+details.faq .faq-btn { margin: 0 16px 14px; }
+
 /* ---------- À propos ---------- */
 .device[data-screen="about"] { --grad-a: #5b7c99; --grad-b: #33506e; --grad-c: #1c2f45; }
 .idcard { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; gap: 14px; }
@@ -742,6 +754,7 @@ textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 4px var(--glow-b
           <span class="hver" aria-label="Version 1.0">v1.0</span>
           <div class="hmenu" id="hmenu" role="menu" hidden>
             <button type="button" class="hmi" role="menuitem" id="open-search"><svg class="i" aria-hidden="true"><use href="#i-search"/></svg><span>Rechercher</span></button>
+            <button type="button" class="hmi" role="menuitem" id="open-faq"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg><span>Questions fréquentes</span></button>
             <button type="button" class="hmi" role="menuitem" id="open-about"><svg class="i" aria-hidden="true"><use href="#i-info"/></svg><span>À propos et contact</span></button>
             <button type="button" class="hmi" role="menuitem" id="open-share"><svg class="i" aria-hidden="true"><use href="#i-share"/></svg><span>Partager l’application</span></button>
             <hr>
@@ -1055,7 +1068,7 @@ textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 4px var(--glow-b
   <!-- GUIDES ET DOCUMENTS -->
   <!-- MAPI : urgence -->
   <section id="p-mapi" role="tabpanel" hidden>
-    <div class="card"><h3>Malaise juste après le vaccin : vagal ou anaphylaxie ?</h3>
+    <div class="card"><h3>Malaise juste après le vaccin : vagal ou anaphylaxie&nbsp;?</h3>
       <div class="tablewrap" style="box-shadow:none"><table class="vs">
         <thead><tr><th></th><th class="vag">Réaction vagale</th><th class="ana">Anaphylaxie</th></tr></thead>
         <tbody>
@@ -1117,7 +1130,7 @@ textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 4px var(--glow-b
       <div class="dl d48"><b>48 h</b><span>EIPV grave</span><small>Fiche + fax ou téléphone</small></div>
       <div class="dl d30"><b>30 j</b><span>EIPV bénin</span><small>Rapport mensuel des EIPV</small></div>
     </div>
-    <div class="card"><h3>Que notifier ?</h3>
+    <div class="card"><h3>Que notifier&nbsp;?</h3>
       <p style="margin:0;font-size:.86rem">Tout EIPV qui inquiète les parents ou le personnel, et en particulier :</p>
       <h4>Au site d’injection</h4>
       <ul class="ci"><li>Rougeur et gonflement jusqu’à l’articulation la plus proche.</li><li>Douleur, rougeur, gonflement plus de 3 jours.</li><li>Abcès (bactérien ou stérile), lymphadénite suppurée.</li></ul>
@@ -1129,16 +1142,18 @@ textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 4px var(--glow-b
       <ul class="ci"><li>Réaction allergique (éruption, sifflement, œdème du visage), choc anaphylactique.</li><li>Cris persistants plus de 3 heures, enfant inconsolable.</li><li>Hypotonie-hyporéactivité après DTC ou Penta (vers 3 à 4 heures).</li><li>Invagination intestinale (dans les 21 jours), vomissements, diarrhée, douleurs abdominales.</li><li>Ostéite, septicémie (7 jours), choc toxique (72 heures), BCGite généralisée (1 à 12 mois), thrombopénie (12 à 25 jours après RR), arthralgie persistante.</li></ul>
       <p class="warnline">Tout décès, hospitalisation ou événement grave ou inhabituel dans les 4 semaines suivant la vaccination.</p>
     </div>
-    <div class="card"><h3>Fiche de notification (fiche jaune)</h3>
+    <div class="card"><h3>Fiche de notification des EIPV (AMMPS)</h3>
       <dl class="facts">
-        <dt>Patient</dt><dd>Identifiant, date de naissance ou âge, sexe, antécédents.</dd>
-        <dt>Vaccin</dt><dd>Date et heure, nom du vaccin et autres produits donnés juste avant, n° de lot et péremption, nombre de doses.</dd>
-        <dt>Événement</dt><dd>Date et heure d’apparition, description, évolution.</dd>
-        <dt>Notificateur</dt><dd>Nom, établissement, fonction, courriel, téléphone.</dd>
+        <dt>Patient</dt><dd>Nom ou initiales, âge, poids, sexe, mois de grossesse le cas échéant, adresse, téléphone, antécédents, allergies, médicaments.</dd>
+        <dt>Événement</dt><dd>Type d’EIPV à cocher (réaction locale sévère, convulsions, abcès, septicémie, encéphalopathie, choc toxique, thrombocytopénie, anaphylaxie, fièvre ≥ 38 °C, autre), description, date et heure de début.</dd>
+        <dt>Gravité</dt><dd>Grave ou non (décès, pronostic vital, handicap, hospitalisation, anomalie congénitale), évolution, investigation prévue.</dd>
+        <dt>Vaccin</dt><dd>Établissement (public, privé ou campagne), nom commercial et fabricant, date et heure, dose, n° de lot et péremption, diluant et heure de reconstitution.</dd>
+        <dt>Notificateur</dt><dd>Nom, profession, ville, téléphone, courriel.</dd>
       </dl>
-      <p class="note" style="margin:0">Une fiche complète permet d’établir le lien de cause à effet et d’obtenir un retour.</p>
+      <p class="note" style="margin:0">Fiche à envoyer à <a href="mailto:vaccinovigilance@ammps.gov.ma">vaccinovigilance@ammps.gov.ma</a>, avec photos ou résultats d’analyse si besoin. Une fiche complète permet d’établir le lien de cause à effet et d’obtenir un retour.</p>
+      <a class="callbtn" href="docs/fiche-notification-eipv-ammps.pdf" target="_blank" rel="noopener">Ouvrir la fiche (PDF)</a>
     </div>
-    <div class="card"><h3>Où notifier ?</h3>
+    <div class="card"><h3>Où notifier&nbsp;?</h3>
       <div class="contact"><b>AMMPS, Centre National des Vigilances</b>
         <span>En ligne : <a href="https://vigiflow-eforms.who-umc.org/ma/vaccin" target="_blank" rel="noopener">vigiflow-eforms.who-umc.org/ma/vaccin</a>. Exporter le PDF pour garder une copie.</span>
         <span>Fiche papier (site <a href="https://ammps.sante.gov.ma/" target="_blank" rel="noopener">ammps.sante.gov.ma</a>) à envoyer à <a href="mailto:vaccinovigilance@ammps.sante.gov.ma">vaccinovigilance@ammps.sante.gov.ma</a> ou <a href="mailto:vaccinovigilance@ammps.gov.ma">vaccinovigilance@ammps.gov.ma</a>.</span>
@@ -1158,7 +1173,7 @@ textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 4px var(--glow-b
         <li>Événement qui inquiète fortement les parents ou la communauté.</li>
       </ul>
     </div>
-    <p class="src-line">Sources : Manuel pratique PNI 2016, p. 112 à 114 ; circulaire ROTASIIL-Liquid® (DP/19).</p>
+    <p class="src-line">Sources : Manuel pratique PNI 2016, p. 112 à 114 ; circulaire ROTASIIL-Liquid® (DP/19) ; fiche de notification des EIPV de l’AMMPS.</p>
   </section>
 
   <!-- FROID : conservation -->
@@ -1493,6 +1508,20 @@ textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 4px var(--glow-b
   <section id="p-news" role="tabpanel" hidden>
     <div id="news-list" class="newslist"></div>
     <p class="src-line">Les nouveautés sont ajoutées à chaque mise à jour de l’application, à partir des circulaires et guides officiels du PNI.</p>
+  </section>
+
+  <!-- QUESTIONS FRÉQUENTES -->
+  <section id="p-faq" role="tabpanel" hidden>
+    <div class="faqlist">
+      <details class="card faq"><summary><h3>Peut-on enregistrer chaque enfant (par numéro ou par nom)&nbsp;?</h3></summary><p>Non, et c’est voulu. Vaccin’Assist ne conserve aucune donnée personnelle, pour protéger la confidentialité des familles. Saisissez la date de naissance à chaque consultation : le calcul est immédiat. Le suivi de chaque enfant reste dans le carnet de santé et le registre de vaccination.</p></details>
+      <details class="card faq"><summary><h3>L’application fonctionne-t-elle sans Internet&nbsp;?</h3></summary><p>Oui. Après la première ouverture avec une connexion, tout fonctionne hors ligne.</p></details>
+      <details class="card faq"><summary><h3>Comment l’installer sur mon téléphone&nbsp;?</h3></summary><p>Ouvrez assist-apps.ma dans le navigateur, puis choisissez « Ajouter à l’écran d’accueil » (Android : menu ⋮ du navigateur ; iPhone : bouton Partager).</p></details>
+      <details class="card faq"><summary><h3>Comment recevoir les mises à jour&nbsp;?</h3></summary><p>Automatiquement : il suffit d’ouvrir l’application de temps en temps avec une connexion Internet.</p></details>
+      <details class="card faq"><summary><h3>Sur quel calendrier se base l’application&nbsp;?</h3></summary><p>Sur le Calendrier National de Vaccination en vigueur et les guides officiels du PNI, consultables dans « Guides ».</p></details>
+      <details class="card faq"><summary><h3>Est-ce une application officielle&nbsp;?</h3></summary><p>Non. Vaccin’Assist est une initiative personnelle, indépendante de tout organisme public. C’est un outil d’aide : en cas de doute, les guides et instructions officiels font foi.</p></details>
+      <details class="card faq"><summary><h3>L’application est-elle payante&nbsp;?</h3></summary><p>Non, elle est entièrement gratuite.</p></details>
+      <details class="card faq"><summary><h3>Comment poser une question ou signaler une erreur&nbsp;?</h3></summary><p>Depuis « À propos et contact », onglet « Suggestions » : votre message s’ouvre dans WhatsApp ou dans votre messagerie, prêt à envoyer.</p><button type="button" class="btn faq-btn" id="faq-ask">Écrire un message</button></details>
+    </div>
   </section>
 
   <!-- À PROPOS : qui sommes-nous -->
@@ -2436,6 +2465,9 @@ const DOCS = [
     { f:'srec-rapport-mensuel.pdf', t:'SREC : rapport mensuel des activités', d:'Rapport mensuel de l\u2019ESSP, dont la partie vaccination (performances et ressources).', m:'PDF · 15 pages · 1 Mo' },
     { f:'srec-definitions-concepts.pdf', t:'SREC : définitions et concepts', d:'Définition de chaque indicateur à remplir. Vaccination : p. 19 à 21.', m:'PDF · 42 pages · 2,3 Mo' },
   ]},
+  { group: 'MAPI (vaccinovigilance)', items: [
+    { f:'fiche-notification-eipv-ammps.pdf', t:'Fiche de notification des EIPV (AMMPS)', d:'Fiche du Centre National des Vigilances de l\u2019AMMPS à remplir pour tout événement indésirable post-vaccinal, puis à envoyer à vaccinovigilance@ammps.gov.ma.', m:'PDF · 1 page · 0,6 Mo' },
+  ]},
   { group: 'Notes et circulaires', items: [
     { f:'circulaire-hpv.pdf', t:'Circulaire DP-19/2022 : introduction du vaccin HPV', d:'Vaccin GARDASIL® pour les filles de 11 ans et sa fiche technique (contre-indications, administration, EIPV). Le schéma à 2 doses de la circulaire est remplacé par une dose unique.', m:'PDF · 4 pages · 1 Mo' },
     { f:'circulaire-rotasiil-liquid.pdf', t:'Circulaire DP/19 : ROTASIIL-Liquid®', d:'Nouvelle présentation du vaccin antirotavirus et sa fiche technique (schéma, rattrapage avant 24 mois, MAPI).', m:'PDF · 7 pages · 1,1 Mo' },
@@ -2491,7 +2523,7 @@ $('#sex').querySelectorAll('button').forEach(b => b.addEventListener('click', ()
 $('#td-today').addEventListener('input', renderFemme); $('#td-preg').addEventListener('change', renderFemme);
 $('#td-dpa').addEventListener('input', renderFemme); $('#td-enf').addEventListener('change', () => { renderTdInputs(); renderFemme(); });
 // ---- Navigation : barre du bas (4 écrans) et sous-sections Enfants / Femmes ----
-const ICONS = { routine:'syringe', ratt:'history', secu:'shield', prat:'hand', cal:'calendar', docs:'book', mapi:'alert', froid:'snow', about:'info', news:'bell', seance:'users', supp:'drop' };
+const ICONS = { routine:'syringe', ratt:'history', secu:'shield', prat:'hand', cal:'calendar', docs:'book', mapi:'alert', froid:'snow', about:'info', faq:'chat', news:'bell', seance:'users', supp:'drop' };
 const NAV = {
   routine: { title:'Vaccination de routine', sub:'Doses dues aujourd’hui et prochains rendez-vous',
     parts:[ { id:'p-enfant', l:'Enfants', i:'baby' }, { id:'p-femme', l:'Femmes (Td)', i:'woman' } ] },
@@ -2504,6 +2536,7 @@ const NAV = {
     parts:[ { id:'p-prat', l:'Par vaccin', i:'vial' }, { id:'p-prat-sites', l:'Sites', i:'body' }, { id:'p-prat-tech', l:'Techniques', i:'list' } ] },
   about: { title:'À propos', sub:'L’application, son auteur et comment nous écrire',
     parts:[ { id:'p-about', l:'Qui sommes-nous', i:'info' }, { id:'p-avis', l:'Suggestions', i:'chat' } ] },
+  faq: { title:'Questions fréquentes', sub:'Les réponses aux questions les plus posées', parts:[ { id:'p-faq' } ] },
   froid: { title:'Chaîne du froid', sub:'Conserver, contrôler et protéger les vaccins entre +2 °C et +8 °C',
     parts:[ { id:'p-froid', l:'Conserver', i:'thermo' }, { id:'p-froid-ctrl', l:'Contrôler', i:'check' }, { id:'p-froid-inc', l:'Incidents', i:'box' } ] },
   mapi: { title:'MAPI', sub:'Manifestations post-vaccinales indésirables : reconnaître, réagir, notifier',
@@ -2596,6 +2629,8 @@ const avText = () => `[Vaccin'Assist · ${avType()}]\n${$('#av-msg').value.trim(
 $('#av-wa').addEventListener('click', () => { if (!$('#av-msg').value.trim()) return $('#av-msg').focus(); window.open('https://wa.me/' + CONTACT.whatsapp + '?text=' + encodeURIComponent(avText()), '_blank'); });
 $('#av-ml').addEventListener('click', () => { if (!$('#av-msg').value.trim()) return $('#av-msg').focus(); location.href = 'mailto:' + CONTACT.email + '?subject=' + encodeURIComponent("Vaccin'Assist : " + avType()) + '&body=' + encodeURIComponent(avText()); });
 $('#open-about').addEventListener('click', () => showScreen('about', 0));
+$('#open-faq').addEventListener('click', () => showScreen('faq'));
+$('#faq-ask').addEventListener('click', () => showScreen('about', 1));
 
 // ---- Recherche dans tout le contenu (hors ligne) ----
 const SCOLOR = { routine:'#00b5a3', ratt:'#7440e0', secu:'#e86a14', prat:'#0a9a6c', cal:'#4f46e5', froid:'#0b8aa8', mapi:'#e2334a', docs:'#b0259f', news:'#d4920a', seance:'#5a9a1c', supp:'#c98306' };
@@ -2967,3 +3002,4 @@ if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.
   window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
 }
 </script>
+<script data-goatcounter="https://assistapps.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>

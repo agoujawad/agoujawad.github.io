@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Documents · Assist Apps</title>
+<meta name="description" content="Archive de documents Assist Apps : guides Vaccin’Assist et documents du Programme National d’Immunisation à consulter et télécharger.">
+<meta name="theme-color" content="#e7f1f6">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="48x48" href="../assets/favicon-48.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<meta property="og:image" content="https://assist-apps.ma/assets/assist-apps-partage.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+<style>
+:root {
+  --white: #fff; --mist: #f2f8fc; --sky: #e3f1fa; --ink: #13304a; --text: #4d6478; --faint: #8aa0b2; --line: #e1ebf2;
+  --teal: #14a3a8; --teal-d: #0b7c83; --blue: #2a8fe0; --green: #22b26a;
+  --f-teal: #14a3a8; --f-blue: #2a8fe0; --f-navy: #1d4f7a; --f-purple: #7c4dcc; --f-cyan: #1aa6c9; --f-amber: #e39a17; --f-green: #22a35f; --f-red: #d9534f; --f-pink: #c2457c;
+}
+* { box-sizing: border-box; }
+html { background: var(--white); }
+body { margin: 0; background: var(--white); color: var(--text); font: 400 1rem/1.55 Poppins, "Segoe UI", system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+h1, h2, h3 { color: var(--ink); margin: 0; }
+button { font: inherit; color: inherit; }
+a { color: inherit; }
+.in { max-width: 1180px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+/* En-tête (comme la page d'accueil) */
+header { position: sticky; top: 0; z-index: 20; padding-top: env(safe-area-inset-top, 0px); background: linear-gradient(180deg, #e7f1f6, #d8ecf8); box-shadow: inset 0 -3px 0 var(--teal), 0 10px 24px -18px rgb(13 36 56 / .5); }
+.bar { display: flex; align-items: center; gap: 12px; padding-block: 12px; }
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex: none; }
+.logo img.ic { width: 44px; height: 44px; border-radius: 13px; box-shadow: 0 0 0 2px #0d2438, 0 0 0 4px #5fd6cf, 0 8px 16px -8px rgb(0 0 0 / .5); }
+.logo img.wm { height: 40px; width: auto; }
+.search { flex: 1; min-width: 0; display: flex; align-items: center; gap: 8px; background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 0 14px; height: 44px; box-shadow: 0 6px 14px -10px rgb(19 48 74 / .4); }
+.search svg { width: 18px; height: 18px; stroke: var(--faint); flex: none; }
+.search input { flex: 1; min-width: 0; border: 0; outline: 0; background: none; font: inherit; font-size: .92rem; color: var(--ink); }
+.search button { border: 0; background: none; padding: 4px; cursor: pointer; color: var(--faint); font-size: 1.1rem; line-height: 1; }
+.home { flex: none; text-decoration: none; font-size: .78rem; font-weight: 600; color: var(--teal-d); padding: 8px 12px; border-radius: 999px; background: #fff; border: 1px solid var(--line); white-space: nowrap; }
+@media (max-width: 600px) { .logo img.wm { display: none; } .home span { display: none; } }
+
+/* Mise en page Drive */
+.layout { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 28px; padding-block: 24px 48px; }
+@media (max-width: 899px) { .layout { grid-template-columns: minmax(0, 1fr); gap: 14px; padding-block: 14px 40px; } }
+aside { position: sticky; top: 96px; align-self: start; display: grid; gap: 4px; }
+@media (max-width: 899px) { aside { display: none; } }
+.nav { display: flex; align-items: center; gap: 12px; padding: 9px 14px; border-radius: 999px; border: 0; background: none; text-align: left; cursor: pointer; font-size: .9rem; color: var(--ink); }
+.nav:hover { background: var(--mist); }
+.nav[aria-current="true"] { background: #d7f0ef; color: var(--teal-d); font-weight: 600; }
+.nav.subnav { padding-left: 34px; font-size: .84rem; }
+.nav.subnav svg { width: 17px; height: 17px; }
+.nav .n { margin-left: auto; font-size: .74rem; color: var(--faint); }
+.nav svg { width: 20px; height: 20px; flex: none; }
+.side-h { font-size: .7rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); margin: 14px 14px 4px; }
+.store { margin: 16px 14px 0; font-size: .76rem; color: var(--faint); }
+.store .meter { height: 6px; border-radius: 9px; background: var(--line); margin: 6px 0; overflow: hidden; }
+.store .meter i { display: block; height: 100%; width: 100%; background: linear-gradient(90deg, var(--teal), var(--blue)); }
+
+/* Barre de dossiers mobile */
+.chips { display: none; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+.chips::-webkit-scrollbar { display: none; }
+@media (max-width: 899px) { .chips { display: flex; } }
+.chip { flex: none; display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 7px 13px; font-size: .8rem; cursor: pointer; white-space: nowrap; color: var(--ink); }
+.chip[aria-current="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
+.chip i { width: 9px; height: 9px; border-radius: 50%; background: var(--c); }
+
+/* Barre d'outils */
+.tools { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.crumbs { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; font-size: clamp(1.05rem, 4.4vw, 1.35rem); color: var(--ink); font-weight: 500; min-width: 0; flex: 1; }
+.crumbs button { border: 0; background: none; padding: 4px 8px; margin-left: -8px; border-radius: 10px; cursor: pointer; font-weight: 500; color: var(--text); }
+.crumbs button:hover { background: var(--mist); }
+.crumbs span.sep { color: var(--faint); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; background: #fff; }
+.seg button { border: 0; background: none; padding: 7px 12px; cursor: pointer; display: grid; place-items: center; }
+.seg button[aria-pressed="true"] { background: #d7f0ef; color: var(--teal-d); }
+.seg svg { width: 18px; height: 18px; }
+select { font: inherit; font-size: .82rem; border: 1px solid var(--line); border-radius: 999px; padding: 7px 12px; background: #fff; color: var(--ink); }
+
+.h { font-size: .82rem; font-weight: 600; color: var(--ink); margin: 22px 0 10px; }
+.empty { padding: 40px 10px; text-align: center; color: var(--faint); }
+
+/* Dossiers */
+.folders { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 12px; }
+@media (max-width: 480px) { .folders { grid-template-columns: 1fr 1fr; gap: 10px; } }
+.folder { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 10px; align-items: center; padding: 12px 14px; border-radius: 16px; background: var(--mist); border: 1px solid var(--line); cursor: pointer; text-align: left; transition: background .2s, box-shadow .2s, transform .2s; }
+.folder:hover { background: #fff; box-shadow: 0 12px 24px -18px rgb(19 48 74 / .5); transform: translateY(-1px); }
+.folder svg { width: 36px; height: 36px; color: var(--c); }
+.folder b { display: block; color: var(--ink); font-weight: 600; font-size: .86rem; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; }
+.folder small { color: var(--faint); font-size: .72rem; }
+@media (max-width: 480px) { .folder { grid-template-columns: minmax(0, 1fr); gap: 4px; } .folder b { font-size: .8rem; } }
+
+/* Fichiers : grille */
+.files { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+@media (max-width: 480px) { .files { grid-template-columns: 1fr 1fr; gap: 10px; } }
+.file { position: relative; display: grid; grid-template-rows: auto 1fr; border-radius: 18px; background: var(--mist); border: 1px solid var(--line); overflow: hidden; cursor: pointer; text-align: left; padding: 0; transition: box-shadow .2s, transform .2s; }
+.file:hover, .file:focus-visible { box-shadow: 0 16px 30px -20px rgb(19 48 74 / .55); transform: translateY(-2px); }
+.th { position: relative; aspect-ratio: 4 / 4.2; margin: 8px 8px 0; border-radius: 12px; overflow: hidden; background: #fff; display: grid; place-items: center; }
+.th img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+.th .doc { position: relative; width: 58%; aspect-ratio: 3 / 4; border-radius: 8px; background: #fff; box-shadow: 0 10px 22px -12px rgb(19 48 74 / .5), inset 0 0 0 1px var(--line); display: grid; align-content: start; gap: 6px; padding: 18% 12% 0; }
+.th .doc::before { content: ""; position: absolute; inset: 0 0 auto; height: 12%; border-radius: 8px 8px 0 0; background: var(--c); }
+.th .doc i { display: block; height: 5px; border-radius: 4px; background: #e6eef4; }
+.th .doc i:nth-child(2) { width: 80%; } .th .doc i:nth-child(3) { width: 90%; } .th .doc i:nth-child(4) { width: 60%; }
+.th .doc b { position: absolute; left: 50%; bottom: -10px; transform: translateX(-50%); background: #d93b30; color: #fff; font-size: .62rem; font-weight: 700; letter-spacing: .06em; padding: 2px 8px; border-radius: 6px; }
+.th.ph { background: linear-gradient(160deg, #fff, var(--sky)); }
+.nb { position: absolute; top: 8px; left: 8px; background: var(--green); color: #fff; font-size: .62rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 3px 8px; border-radius: 999px; box-shadow: 0 4px 10px -4px rgb(0 0 0 / .4); }
+.fi { padding: 10px 12px 12px; display: grid; gap: 3px; align-content: start; }
+.fi .name { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 7px; align-items: start; }
+.fi .name svg { width: 18px; height: 18px; margin-top: 1px; }
+.fi b { color: var(--ink); font-weight: 600; font-size: .84rem; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.fi small { color: var(--faint); font-size: .72rem; padding-left: 25px; }
+.tag { display: inline-block; justify-self: start; margin: 4px 0 0 25px; font-size: .62rem; font-weight: 600; letter-spacing: .04em; padding: 2px 8px; border-radius: 999px; }
+.tag.ours { background: #d7f0ef; color: var(--teal-d); }
+.tag.off { background: #e7eef5; color: #3d5a75; }
+
+/* Fichiers : liste */
+.rows { display: grid; border: 1px solid var(--line); border-radius: 18px; overflow: hidden; background: #fff; }
+.row { display: grid; grid-template-columns: 22px minmax(0, 1fr) 160px 80px 80px 40px; gap: 14px; align-items: center; padding: 10px 14px; border: 0; border-top: 1px solid var(--line); background: none; text-align: left; cursor: pointer; font-size: .84rem; }
+.row:first-child { border-top: 0; }
+.row:hover { background: var(--mist); }
+.row.hd { cursor: default; background: var(--mist); font-size: .72rem; font-weight: 600; color: var(--faint); text-transform: uppercase; letter-spacing: .08em; }
+.row svg { width: 20px; height: 20px; }
+.row b { color: var(--ink); font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.row .c { color: var(--faint); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dl { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; color: var(--teal-d); text-decoration: none; }
+.dl:hover { background: #d7f0ef; }
+.dl svg { width: 18px; height: 18px; }
+.row .sub { display: none; }
+@media (max-width: 700px) { .row { grid-template-columns: 22px minmax(0, 1fr) 40px; } .row .c { display: none; } .row b { white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; } .row .sub { display: block; font-size: .72rem; color: var(--faint); } }
+
+/* Panneau de détails */
+.scrim { position: fixed; inset: 0; z-index: 40; background: rgb(13 36 56 / .45); opacity: 0; pointer-events: none; transition: opacity .25s; }
+.scrim.on { opacity: 1; pointer-events: auto; }
+.panel { position: fixed; z-index: 41; right: 0; top: 0; bottom: 0; width: min(420px, 100%); background: #fff; box-shadow: -20px 0 40px -20px rgb(13 36 56 / .5); transform: translateX(105%); transition: transform .3s cubic-bezier(.2,.7,.2,1); display: grid; grid-template-rows: auto minmax(0, 1fr) auto; padding-top: env(safe-area-inset-top, 0px); }
+.panel.on { transform: none; }
+.panel[hidden] { display: none; }
+@media (max-width: 600px) { .panel { top: auto; width: 100%; max-height: 88vh; border-radius: 24px 24px 0 0; transform: translateY(105%); box-shadow: 0 -20px 40px -20px rgb(13 36 56 / .5); padding-top: 0; } }
+.ph-h { display: flex; align-items: center; gap: 10px; padding: 14px 16px; border-bottom: 1px solid var(--line); }
+.ph-h b { flex: 1; min-width: 0; color: var(--ink); font-weight: 600; font-size: .95rem; line-height: 1.3; }
+.x { border: 0; background: var(--mist); width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; line-height: 1; flex: none; }
+.ph-b { overflow-y: auto; padding: 16px; display: grid; gap: 14px; align-content: start; }
+.big { border-radius: 16px; overflow: hidden; background: var(--mist); border: 1px solid var(--line); display: grid; place-items: center; min-height: 180px; }
+.big img { width: 100%; display: block; }
+.big .th { width: 60%; margin: 20px auto; background: none; }
+.ph-b p { margin: 0; font-size: .9rem; }
+dl { margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px 16px; font-size: .84rem; }
+dt { color: var(--faint); }
+dd { margin: 0; color: var(--ink); font-weight: 500; }
+.note { font-size: .78rem; background: #fff5e6; color: #8a5200; border-radius: 12px; padding: 10px 12px; }
+.ph-f { display: flex; gap: 8px; flex-wrap: wrap; padding: 14px 16px; padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 14px); border-top: 1px solid var(--line); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 11px 16px; border-radius: 999px; font-weight: 600; font-size: .86rem; text-decoration: none; border: 1px solid var(--line); background: #fff; color: var(--ink); cursor: pointer; flex: 1; white-space: nowrap; }
+.btn.main { background: linear-gradient(100deg, var(--teal), var(--blue)); color: #fff; border: 0; box-shadow: 0 12px 22px -14px var(--blue); }
+.btn svg { width: 18px; height: 18px; }
+.toast { position: fixed; z-index: 50; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 20px); transform: translate(-50%, 30px); opacity: 0; background: var(--ink); color: #fff; padding: 10px 16px; border-radius: 999px; font-size: .84rem; transition: all .25s; pointer-events: none; }
+.toast.on { opacity: 1; transform: translate(-50%, 0); }
+
+footer { border-top: 1px solid var(--line); text-align: center; font-size: .76rem; color: var(--faint); padding-block: 18px; padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 20px); }
+footer p { margin: 0 auto 4px; max-width: 40rem; }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-folder" viewBox="0 0 24 24"><path fill="currentColor" d="M3 6.5A2.5 2.5 0 0 1 5.5 4h3.6c.7 0 1.3.3 1.8.8L12.4 6.3H18.5A2.5 2.5 0 0 1 21 8.8v8.7a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 17.5z"/></symbol>
+  <symbol id="i-pdf" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4" fill="#d93b30"/><text x="12" y="15.6" text-anchor="middle" font-family="Poppins, Arial" font-weight="700" font-size="7" fill="#fff">PDF</text></symbol>
+  <symbol id="i-dl" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 19h14"/></symbol>
+  <symbol id="i-open" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M14 4h6v6M20 4l-9 9M18 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 11l9-7 9 7v8a2 2 0 0 1-2 2h-4v-6H9v6H5a2 2 0 0 1-2-2z"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></symbol>
+</svg>
+
+<header>
+  <div class="in bar">
+    <a class="logo" href="../" aria-label="Assist Apps, accueil"><img class="ic" src="../assets/favicon.svg" alt=""><img class="wm" src="../assets/assist-apps-wordmark-noir.png" alt="Assist Apps"></a>
+    <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="q" type="search" placeholder="Rechercher" autocomplete="off" aria-label="Rechercher un document"><button id="q-x" type="button" aria-label="Effacer" hidden>×</button></label>
+    <a class="home" href="../"><svg width="0" height="0" style="display:none"></svg>← <span>Accueil</span></a>
+  </div>
+</header>
+
+<div class="in layout">
+  <aside id="side"></aside>
+  <main>
+    <div class="chips" id="chips"></div>
+    <div class="tools" style="margin-top:10px">
+      <div class="crumbs" id="crumbs"></div>
+      <select id="sort" aria-label="Trier"><option value="name">Nom</option><option value="size">Taille</option><option value="pages">Pages</option></select>
+      <div class="seg" role="group" aria-label="Affichage"><button type="button" data-v="grid" aria-pressed="true" aria-label="Grille"><svg><use href="#i-grid"/></svg></button><button type="button" data-v="list" aria-pressed="false" aria-label="Liste"><svg><use href="#i-list"/></svg></button></div>
+    </div>
+    <div id="view"></div>
+  </main>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<section class="panel" id="panel" role="dialog" aria-modal="true" aria-labelledby="p-title" hidden>
+  <div class="ph-h"><b id="p-title"></b><button class="x" id="p-x" type="button" aria-label="Fermer">×</button></div>
+  <div class="ph-b" id="p-body"></div>
+  <div class="ph-f" id="p-foot"></div>
+</section>
+<div class="toast" id="toast" role="status"></div>
+
+<footer>
+  <div class="in">
+    <p>Les guides Vaccin’Assist sont des outils non officiels, réalisés à partir des documents du Programme National d’Immunisation. Les autres documents sont des publications du Ministère de la Santé et de la Protection Sociale, partagées pour faciliter leur consultation.</p>
+    <p>Assist Apps · par JawaDev</p>
+  </div>
+</footer>
+
+<script src="fichiers.js"></script>
+<script>
+(() => {
+  const A = window.ARCHIVE, F = A.files, D = A.folders;
+  const $ = s => document.querySelector(s);
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const col = id => `var(--f-${(D.find(d => d.id === id) || {}).color || 'teal'})`;
+  const mo = b => (b / 1048576).toLocaleString('fr-FR', { maximumFractionDigits: 1, minimumFractionDigits: b < 1048576 ? 1 : 1 }) + ' Mo';
+  const pg = n => n + (n > 1 ? ' pages' : ' page');
+  const fold = id => D.find(d => d.id === id);
+  const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+  const NEWEST = F.filter(f => f.date).sort((a, b) => b.date.localeCompare(a.date))[0];
+  let st = { at: 'root', q: '', view: 'grid', sort: 'name' };
+  try { st.view = localStorage.getItem('docs-view') || 'grid'; } catch (e) {}
+
+  // Arborescence : dossiers principaux et sous-dossiers
+  const kids = id => D.filter(d => (d.parent || null) === id);
+  const tree = id => [id, ...kids(id).flatMap(k => tree(k.id))];
+  const count = id => { const t = tree(id); return F.filter(f => t.includes(f.folder)).length; };
+  const ndoc = n => n + (n > 1 ? ' documents' : ' document');
+  const chain = id => { const r = []; let d = fold(id); while (d) { r.unshift(d); d = d.parent ? fold(d.parent) : null; } return r; };
+  const top = id => chain(id)[0];
+
+  // Navigation latérale et pastilles
+  const total = F.reduce((s, f) => s + f.size, 0);
+  function side() {
+    const item = (id, label, n, icon, c, sub) => `<button class="nav${sub ? ' subnav' : ''}" type="button" data-go="${id}" aria-current="${st.at === id}"><svg style="color:${c || 'var(--teal-d)'}"><use href="#${icon}"/></svg>${esc(label)}<span class="n">${n}</span></button>`;
+    $('#side').innerHTML = item('root', 'Tous les documents', F.length, 'i-home') + item('recent', 'Récents', F.filter(f => f.date).length, 'i-clock')
+      + '<div class="side-h">Dossiers</div>' + kids(null).map(d => item(d.id, d.name, count(d.id), 'i-folder', col(d.id)) + kids(d.id).map(k => item(k.id, k.name, count(k.id), 'i-folder', col(k.id), 1)).join('')).join('')
+      + `<div class="store">${F.length} documents · ${mo(total)}<div class="meter"><i></i></div>PDF à consulter ou télécharger</div>`;
+    const cur = st.at === 'root' || st.at === 'recent' ? null : top(st.at);
+    const chips = [['root', 'Tout'], ['recent', 'Récents'], ...kids(null).map(d => [d.id, d.name])];
+    $('#chips').innerHTML = chips.map(([id, n]) => `<button class="chip" type="button" data-go="${id}" aria-current="${st.at === id || (cur && cur.id === id)}" style="--c:${id === 'root' || id === 'recent' ? 'var(--teal)' : col(id)}">${id !== 'root' && id !== 'recent' ? '<i></i>' : ''}${esc(n)}</button>`).join('');
+  }
+
+  const thumb = f => f.thumb
+    ? `<div class="th"><img src="${f.thumb}" alt="" loading="lazy">${f === NEWEST ? '<span class="nb">Nouveau</span>' : ''}</div>`
+    : `<div class="th ph" style="--c:${col(f.folder)}"><div class="doc"><i></i><i></i><i></i><i></i><b>PDF</b></div></div>`;
+  const tag = f => f.ours ? '<span class="tag ours">Guide Vaccin’Assist</span>' : `<span class="tag off">${esc(top(f.folder).name.split(' :')[0])}</span>`;
+
+  function list() {
+    let L = F.slice();
+    if (st.q) { const q = norm(st.q); L = L.filter(f => norm(f.t + ' ' + f.d + ' ' + fold(f.folder).name).includes(q)); }
+    else if (st.at === 'recent') L = L.filter(f => f.date).sort((a, b) => b.date.localeCompare(a.date));
+    else if (st.at !== 'root') L = L.filter(f => f.folder === st.at);
+    if (st.at !== 'recent' || st.q) {
+      if (st.sort === 'size') L.sort((a, b) => b.size - a.size);
+      else if (st.sort === 'pages') L.sort((a, b) => b.pages - a.pages);
+      else L.sort((a, b) => (b.ours - a.ours) || a.t.localeCompare(b.t, 'fr'));
+    }
+    return L;
+  }
+
+  function files(L) {
+    if (!L.length) return '<div class="empty">Aucun document ne correspond à votre recherche.</div>';
+    if (st.view === 'list') return `<div class="rows"><div class="row hd"><span></span><span>Nom</span><span class="c">Dossier</span><span class="c">Pages</span><span class="c">Taille</span><span></span></div>`
+      + L.map(f => `<div class="row" role="button" tabindex="0" data-f="${f.id}"><svg><use href="#i-pdf"/></svg><span><b>${esc(f.t)}</b><span class="sub">${pg(f.pages)} · ${mo(f.size)}</span></span><span class="c">${esc(fold(f.folder).name)}</span><span class="c">${f.pages}</span><span class="c">${mo(f.size)}</span><a class="dl" href="${f.url}" download data-dl="${f.id}" aria-label="Télécharger"><svg><use href="#i-dl"/></svg></a></div>`).join('') + '</div>';
+    return '<div class="files">' + L.map(f => `<button class="file" type="button" data-f="${f.id}">${thumb(f)}<span class="fi"><span class="name"><svg><use href="#i-pdf"/></svg><b>${esc(f.t)}</b></span><small>${pg(f.pages)} · ${mo(f.size)}</small>${tag(f)}</span></button>`).join('') + '</div>';
+  }
+
+  const folderCards = L => '<div class="folders">' + L.map(d => `<button class="folder" type="button" data-go="${d.id}" style="--c:${col(d.id)}"><svg><use href="#i-folder"/></svg><span><b>${esc(d.name)}</b><small>${kids(d.id).length ? kids(d.id).length + ' dossiers · ' : ''}${ndoc(count(d.id))}</small></span></button>`).join('') + '</div>';
+
+  function render() {
+    side();
+    const cr = [`<button type="button" data-go="root">Documents</button>`];
+    if (st.q) cr.push(`<span class="sep">›</span><span>Résultats pour « ${esc(st.q)} »</span>`);
+    else if (st.at === 'recent') cr.push('<span class="sep">›</span><span>Récents</span>');
+    else if (st.at !== 'root') chain(st.at).forEach((d, i, a) => cr.push('<span class="sep">›</span>' + (i < a.length - 1 ? `<button type="button" data-go="${d.id}">${esc(d.name)}</button>` : `<span>${esc(d.name)}</span>`)));
+    $('#crumbs').innerHTML = cr.join('');
+    document.querySelectorAll('.seg button').forEach(b => b.setAttribute('aria-pressed', b.dataset.v === st.view));
+    let h = '';
+    if (st.at === 'root' && !st.q) {
+      h += '<div class="h">Dossiers</div>' + folderCards(kids(null));
+      h += '<div class="h">Nos guides</div>' + files(list().filter(f => f.ours));
+    } else {
+      const d = st.at !== 'root' && st.at !== 'recent' && !st.q ? fold(st.at) : null;
+      if (d) h += `<p style="margin:6px 0 0;font-size:.86rem">${esc(d.d)}</p>`;
+      if (d && kids(d.id).length) h += '<div class="h">Dossiers</div>' + folderCards(kids(d.id));
+      const L = list();
+      if (L.length || !d || !kids(d.id).length) h += (d && kids(d.id).length ? '<div class="h">Fichiers</div>' : '<div style="height:14px"></div>') + files(L);
+    }
+    $('#view').innerHTML = h;
+    const ac = document.querySelector('.chip[aria-current="true"]'); if (ac) { const c = $('#chips'); c.scrollLeft = ac.offsetLeft - 16; }
+  }
+
+  function go(at) {
+    st.at = at; st.q = ''; $('#q').value = ''; $('#q-x').hidden = true;
+    const h = at === 'root' ? ' ' : '#' + at;
+    if (location.hash !== (at === 'root' ? '' : '#' + at)) history.replaceState(null, '', h.trim() || location.pathname);
+    render(); window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Panneau
+  let lastFocus = null;
+  function open(id) {
+    const f = F.find(x => x.id === id); if (!f) return;
+    lastFocus = document.activeElement;
+    $('#p-title').textContent = f.t;
+    $('#p-body').innerHTML = `<div class="big">${f.thumb ? `<img src="${f.thumb}" alt="Première page">` : thumb(f)}</div>
+      <p>${esc(f.d)}</p>
+      <dl><dt>Type</dt><dd>PDF</dd><dt>Pages</dt><dd>${f.pages}</dd><dt>Taille</dt><dd>${mo(f.size)}</dd><dt>Langue</dt><dd>${esc(f.lang)}</dd><dt>Dossier</dt><dd>${chain(f.folder).map(d => esc(d.name)).join(' › ')}</dd><dt>Source</dt><dd>${f.ours ? 'Guide Vaccin’Assist (non officiel)' : (top(f.folder).id === 'pnn' ? 'Programme National de Nutrition' : top(f.folder).id === 'srec' ? 'SREC' : 'Programme National d’Immunisation') + ' / Ministère de la Santé'}</dd></dl>
+      ${f.ours ? '<div class="note">Outil non officiel, réalisé à partir des documents du PNI. En cas de doute, la référence reste les directives officielles.</div>' : ''}`;
+    $('#p-foot').innerHTML = `<a class="btn main" href="${f.url}" download data-dl="${f.id}"><svg><use href="#i-dl"/></svg>Télécharger</a><a class="btn" href="${f.url}" target="_blank" rel="noopener"><svg><use href="#i-open"/></svg>Ouvrir</a><button class="btn" type="button" data-copy="${f.id}" style="flex:0 0 auto"><svg><use href="#i-link"/></svg><span class="sr">Lien</span></button>`;
+    const p = $('#panel'); p.hidden = false; requestAnimationFrame(() => { p.classList.add('on'); $('#scrim').classList.add('on'); $('#p-x').focus(); });
+  }
+  function close() {
+    const p = $('#panel'); p.classList.remove('on'); $('#scrim').classList.remove('on');
+    setTimeout(() => { p.hidden = true; }, 300); if (lastFocus) lastFocus.focus();
+  }
+  function toast(t) { const e = $('#toast'); e.textContent = t; e.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(() => e.classList.remove('on'), 2200); }
+
+  document.addEventListener('click', e => {
+    const dl = e.target.closest('[data-dl]');
+    if (dl) { try { window.goatcounter && window.goatcounter.count({ path: 'telechargement/' + dl.dataset.dl, title: 'Téléchargement', event: true }); } catch (x) {} e.stopPropagation(); return; }
+    const g = e.target.closest('[data-go]'); if (g) return go(g.dataset.go);
+    const c = e.target.closest('[data-copy]');
+    if (c) { const f = F.find(x => x.id === c.dataset.copy); const url = new URL(f.url, location.href).href;
+      (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(() => toast('Lien copié'), () => toast(url)); return; }
+    const f = e.target.closest('[data-f]'); if (f) return open(f.dataset.f);
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && !$('#panel').hidden) close();
+    if (e.key === 'Enter' && e.target.matches('.row[data-f]')) open(e.target.dataset.f);
+  });
+  $('#p-x').addEventListener('click', close); $('#scrim').addEventListener('click', close);
+  $('#q').addEventListener('input', e => { st.q = e.target.value.trim(); $('#q-x').hidden = !st.q; render(); });
+  $('#q-x').addEventListener('click', () => { $('#q').value = ''; st.q = ''; $('#q-x').hidden = true; render(); $('#q').focus(); });
+  $('#sort').addEventListener('change', e => { st.sort = e.target.value; render(); });
+  document.querySelectorAll('.seg button').forEach(b => b.addEventListener('click', () => { st.view = b.dataset.v; try { localStorage.setItem('docs-view', st.view); } catch (x) {} render(); }));
+
+  const h0 = location.hash.slice(1);
+  if (h0 && (fold(h0) || h0 === 'recent')) st.at = h0;
+  else if (h0 && F.find(f => f.id === h0)) setTimeout(() => open(h0), 50);
+  render();
+})();
+</script>
+<script data-goatcounter="https://assistapps.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>
