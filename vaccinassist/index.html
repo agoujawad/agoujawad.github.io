@@ -578,6 +578,33 @@ textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 4px var(--glow-b
   background: var(--surface); border: 2px solid var(--grad-b); border-radius: 24px;
   box-shadow: 0 0 0 6px color-mix(in srgb, var(--grad-b) 14%, transparent), 0 22px 46px -16px rgb(0 0 0 / .55); animation: upd-in .4s cubic-bezier(.2, .9, .3, 1.2); }
 .upd[hidden] { display: none; }
+/* ---------- Lien vers le site Assist Apps ---------- */
+.site-link { display: grid; grid-template-columns: 46px minmax(0, 1fr) auto; align-items: center; gap: 4px 12px; margin-top: 12px; padding: 14px; border-radius: 18px; text-decoration: none; color: #fff; background: linear-gradient(135deg, #13304a, #0b7c83); }
+.site-link .sl-i { grid-column: 1; grid-row: 1 / 3; width: 46px; height: 46px; border-radius: 14px; }
+.site-link b { grid-column: 2; grid-row: 1; align-self: end; font-family: var(--font-display); font-size: .98rem; }
+.site-link small { grid-column: 2; grid-row: 2; align-self: start; font-size: .78rem; line-height: 1.35; color: rgb(255 255 255 / .82); }
+.site-link .sl-go { grid-column: 3; grid-row: 1 / 3; font-size: .8rem; font-weight: 700; padding: 8px 12px; border-radius: 99px; background: #fff; color: #0b7c83; white-space: nowrap; }
+.site-link.mini { grid-template-columns: 30px minmax(0, 1fr) auto; gap: 0 10px; padding: 9px 12px; border-radius: 14px; color: var(--ink); background: var(--bg); border: 1px solid var(--line); }
+.site-link.mini .sl-i { width: 30px; height: 30px; border-radius: 9px; }
+.site-link.mini b { grid-row: 1 / 3; align-self: center; font-size: .82rem; font-weight: 600; }
+.site-link.mini small { display: none; }
+.site-link.mini .sl-go { padding: 6px 10px; font-size: .74rem; background: transparent; color: var(--teal-d, #0b7c83); border: 1px solid currentColor; }
+.fiche { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 14px; align-items: start; padding: 14px; border-radius: 20px; background: var(--surface); border: 1px solid var(--line); margin-bottom: 12px; }
+.fiche img { width: 96px; aspect-ratio: 4 / 5; object-fit: cover; object-position: top; border-radius: 10px; box-shadow: 0 8px 18px -10px rgb(0 0 0 / .45); }
+.fiche b { display: block; font-family: var(--font-display); color: var(--ink); font-size: 1rem; }
+.fiche p { margin: 4px 0 6px; font-size: .84rem; color: var(--muted); }
+.fiche .meta { display: block; font-family: var(--font-data); font-size: .74rem; color: var(--muted); margin-bottom: 10px; }
+.fiche a { display: inline-block; text-decoration: none; color: #fff; font-weight: 700; font-size: .85rem; padding: 8px 18px; border-radius: 99px; background: linear-gradient(135deg, var(--grad-a), var(--grad-b)); }
+.annonce { position: fixed; left: 12px; right: 12px; bottom: calc(92px + env(safe-area-inset-bottom, 0px)); z-index: 31; max-width: 520px; margin: 0 auto; display: grid; grid-template-columns: 46px minmax(0, 1fr); gap: 6px 12px; align-items: center; padding: 16px; border-radius: 22px; color: #fff; background: linear-gradient(135deg, #13304a, #0b7c83); box-shadow: 0 22px 46px -16px rgb(0 0 0 / .55); animation: upd-in .4s cubic-bezier(.2, .9, .3, 1.2); }
+.annonce[hidden] { display: none; }
+.annonce .sl-i { grid-row: span 2; width: 46px; height: 46px; border-radius: 14px; }
+.annonce b { font-family: var(--font-display); font-size: .98rem; }
+.annonce small { font-size: .8rem; line-height: 1.4; color: rgb(255 255 255 / .85); }
+.annonce .acts { grid-column: 1 / -1; display: flex; justify-content: flex-end; gap: 8px; margin-top: 6px; }
+.annonce .acts button, .annonce .acts a { font: inherit; font-size: .85rem; font-weight: 700; border: 0; border-radius: 99px; padding: 9px 16px; cursor: pointer; text-decoration: none; }
+.annonce .later { background: transparent; color: rgb(255 255 255 / .8); }
+.annonce .go { background: #fff; color: #0b7c83; }
+
 .upd .ico { grid-row: span 2; width: 60px; height: 60px; border-radius: 18px; display: grid; place-items: center; color: #fff; background: linear-gradient(135deg, var(--grad-a), var(--grad-b)); box-shadow: 0 10px 20px -10px var(--grad-b); }
 .upd .ico svg { width: 30px; height: 30px; }
 .upd b { font-family: var(--font-display); font-size: 1.15rem; line-height: 1.25; color: var(--ink); }
@@ -1563,9 +1590,17 @@ textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 4px var(--glow-b
 
   <section id="p-docs" role="tabpanel" hidden>
     <div id="docs-list" style="display:grid;gap:18px"></div>
+    <div id="docs-site"></div>
   </section>
 
   <section id="p-fiches" role="tabpanel" hidden>
+    <div class="fiche">
+      <img src="img/fiche-rattrapage.jpg" alt="Première page du guide « Le rattrapage vaccinal »" loading="lazy">
+      <div><b>Le rattrapage vaccinal</b>
+        <p>Principes, bilan vaccinal, tableaux par âge et règles vaccin par vaccin, en 12 fiches.</p>
+        <span class="meta">PDF · 12 pages · 5,6 Mo</span>
+        <a href="docs/guide-rattrapage-vaccinal.pdf" target="_blank" rel="noopener">Ouvrir</a></div>
+    </div>
     <div class="card"><div class="soon-box">
       <span class="ti"><svg class="i" aria-hidden="true"><use href="#i-list"/></svg></span>
       <b>Fiches en préparation</b>
@@ -1591,7 +1626,7 @@ textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 4px var(--glow-b
   </div>
   <div class="more" id="more" role="dialog" aria-modal="true" aria-label="Autres rubriques" hidden>
     <div class="more-bg" data-close></div>
-    <div class="sheet"><span class="grab" aria-hidden="true"></span><h2>Autres rubriques</h2><div class="tiles" id="more-tiles"></div></div>
+    <div class="sheet"><span class="grab" aria-hidden="true"></span><h2>Autres rubriques</h2><div class="tiles" id="more-tiles"></div><div id="more-site"></div></div>
   </div>
   <nav class="bottomnav" role="tablist" aria-label="Navigation principale">
     <button class="tab" role="tab" id="tab-routine" aria-selected="true" data-nav="routine"><span class="ic"><svg class="i" aria-hidden="true"><use href="#i-syringe"/></svg></span>Routine</button>
@@ -1604,6 +1639,12 @@ textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 4px var(--glow-b
     <div class="sbar"><label class="field"><svg class="i" aria-hidden="true"><use href="#i-search"/></svg><input type="search" id="q" placeholder="Rechercher : BCG, fièvre, bris…" autocomplete="off" enterkeyhint="search"></label>
       <button type="button" class="close" id="close-search" aria-label="Fermer">✕</button></div>
     <div class="sres" id="sres"></div>
+  </div>
+  <div class="annonce" id="annonce" role="status" aria-live="polite" hidden>
+    <img class="sl-i" id="an-i" alt="">
+    <b id="an-t"></b>
+    <small id="an-s"></small>
+    <div class="acts"><button type="button" class="later" id="an-later">Plus tard</button><a class="go" id="an-go" target="_blank" rel="noopener">Découvrir</a></div>
   </div>
   <button type="button" class="fab" id="fab-mapi" aria-label="MAPI : urgence et notification"><svg class="i" aria-hidden="true"><use href="#i-alert"/></svg>MAPI</button>
 </div>
@@ -2474,6 +2515,7 @@ const DOCS = [
   ]},
 ];
 function renderDocs() {
+  $('#docs-site').innerHTML = siteLink(SITE + 'documents/', 'Plus de guides et documents', 'Retrouvez l’archive complète Assist Apps, mise à jour régulièrement.');
   $('#docs-list').innerHTML = DOCS.map(g => `
     <div class="docgroup"><h2>${g.group}</h2>
       ${g.items.map(x => `<div class="doc"><b>${x.t}</b><p>${x.d}</p><span class="meta">${x.m}</span>
@@ -2551,7 +2593,30 @@ const NAV = {
 };
 // Piliers accessibles par le bouton « Plus » de la barre du bas
 const MORE = ['seance', 'froid', 'supp', 'cal', 'docs'];
+
+// ---- Site Assist Apps : lien permanent et annonce affichée une seule fois ----
+const SITE = 'https://assist-apps.ma/';
+const SITE_ICON = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMGQyNDM4Ii8+PHN0b3Agb2Zmc2V0PSIuNTUiIHN0b3AtY29sb3I9IiMxMDQwNWEiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwYjZmNzgiLz48L2xpbmVhckdyYWRpZW50Pgo8cmFkaWFsR3JhZGllbnQgaWQ9InIiIGN4PSIxIiBjeT0iMCIgcj0iLjkiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzE0YTNhOCIgc3RvcC1vcGFjaXR5PSIuNTUiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMxNGEzYTgiIHN0b3Atb3BhY2l0eT0iMCIvPjwvcmFkaWFsR3JhZGllbnQ+CjxsaW5lYXJHcmFkaWVudCBpZD0ibCIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2UzZjdmNSIvPjwvbGluZWFyR3JhZGllbnQ+CjwvZGVmcz48cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjExMiIgZmlsbD0idXJsKCNnKSIvPjxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiByeD0iMTEyIiBmaWxsPSJ1cmwoI3IpIi8+PHBhdGggZD0iTTEzNiA0MDQgMjU2IDEwOCAzNzYgNDA0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMzAiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjxwYXRoIGQ9Ik05NiAzMDBoOTZsMjgtNTIgMzYgOTYgMzItNzAgMTggMjZoMTEwIiBmaWxsPSJub25lIiBzdHJva2U9IiM1ZmQ2Y2YiIHN0cm9rZS13aWR0aD0iMjQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==';
+const siteLink = (href, t, s, mini) => `<a class="site-link${mini ? ' mini' : ''}" href="${href}" target="_blank" rel="noopener"><img class="sl-i" src="${SITE_ICON}" alt=""><b>${t}</b><small>${s}</small><span class="sl-go">Visiter</span></a>`;
+// Annonce : changer id pour publier une nouvelle annonce (chaque id ne s'affiche qu'une fois).
+const ANNONCE = { id:'archive-documents', t:'Nouveau : l’archive Assist Apps', s:'Guides et documents du PNI à télécharger sur assist-apps.ma.', href: SITE + 'documents/' };
+(function annonce() {
+  const KEY = 'va-annonce-vue', box = $('#annonce');
+  let vue = ''; try { vue = localStorage.getItem(KEY) || ''; } catch {}
+  if (!ANNONCE || vue === ANNONCE.id) return;
+  const done = () => { box.hidden = true; try { localStorage.setItem(KEY, ANNONCE.id); } catch {} };
+  $('#an-i').src = SITE_ICON; $('#an-t').textContent = ANNONCE.t; $('#an-s').textContent = ANNONCE.s; $('#an-go').href = ANNONCE.href;
+  $('#an-later').addEventListener('click', done); $('#an-go').addEventListener('click', done);
+  function show(tries = 0) {
+    const busy = ['#splash', '#updfs', '#camp', '#vidov', '#exitdlg', '#more', '#search'].some(s => $(s) && !$(s).hidden) || !$('#upd').hidden;
+    if (busy) { if (tries < 40) setTimeout(() => show(tries + 1), 1500); return; }
+    box.hidden = false;
+  }
+  $('#sp-go').addEventListener('click', () => setTimeout(show, 2500));
+})();
+
 function openMore() {
+  $('#more-site').innerHTML = siteLink(SITE, 'Nouveautés, documents et autres applications sur <span style="white-space:nowrap">assist-apps.ma</span>', '', true);
   $('#more-tiles').innerHTML = MORE.map(k => `<button type="button" class="tile" data-k="${k}" aria-current="${navState.screen === k}" style="${navState.screen === k ? 'color:' + SCOLOR[k] : ''}">
     <span class="ti" style="background:${SCOLOR[k]}">${icon(ICONS[k])}</span><b lang="fr" style="color:var(--ink)">${NAV[k].title.replace('Supplémentation', 'Supplé&shy;mentation')}</b><small>${NAV[k].sub}</small></button>`).join('');
   // 6e case : rubrique en préparation (montre que l'application s'enrichit à chaque mise à jour)

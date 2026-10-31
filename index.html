@@ -12,7 +12,7 @@
 <meta property="og:image" content="https://assist-apps.ma/assets/assist-apps-partage.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Italiana&family=Dancing+Script:wght@600&family=Poppins:wght@300;400;500;600;700&family=Alexandria:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Italiana&family=Dancing+Script:wght@600&family=Poppins:wght@300;400;500;600;700;800;900&family=Alexandria:wght@500;800&display=swap">
 <style>
 /* Clean medical site: white page, sky-blue and teal, a soft clinical hero with phones showing the real apps, line icons, a teal wave band. */
 :root {
@@ -78,6 +78,10 @@ nav a:hover { background: var(--sky); }
 .hello-ar { font: 500 .8rem/1.5 var(--arabic); text-align: right; color: var(--teal); }
 .hello { padding-right: 16px; }
 .hello i { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--teal); color: #fff; font-style: normal; font-size: .8rem; }
+.marhaba { display: inline-grid; justify-items: start; }
+.marhaba .l { font-weight: 900; font-size: clamp(2.4rem, 11vw, 3.4rem); line-height: .9; letter-spacing: .02em; text-transform: uppercase; background: linear-gradient(90deg, var(--teal), var(--blue)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.marhaba .a { font: 800 clamp(2rem, 9vw, 2.8rem)/1 var(--arabic); color: var(--ink); margin: -.32em 0 0 42%; }
+.marhaba small { font-size: .8rem; font-weight: 600; color: var(--teal-d); margin-top: 6px; }
 .hero h1 { margin: 16px 0 0; font-weight: 600; font-size: clamp(1.7rem, 7vw, 2.8rem); line-height: 1.12; letter-spacing: -.025em; text-wrap: balance; }
 .hero h1 em { font-style: normal; color: var(--blue); }
 .hero .ar { margin: 12px 0 0; font: 500 1.05rem/1.7 var(--arabic); color: var(--teal-d); }
@@ -248,7 +252,7 @@ footer .motto { margin-bottom: 8px; font-size: .8rem; font-weight: 600; letter-s
   <svg class="ecg" viewBox="0 0 1200 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0 40 H420 L440 40 L455 12 L470 70 L486 22 L498 40 H760 L776 40 L788 18 L800 62 L812 40 H1200" fill="none" stroke="#14a3a8" stroke-width="2"/></svg>
   <div class="in hero-grid">
     <div class="rv">
-      <span class="hello"><i>+</i><span>Bienvenue sur Assist Apps<span class="hello-ar" lang="ar" dir="rtl">مرحباً بكم في Assist Apps</span></span></span>
+      <span class="marhaba"><span class="l">Marhaba</span><span class="a" lang="ar">مرحبا</span><small>Bienvenue sur Assist Apps</small></span>
       <h1>Vos outils de santé, <em>toujours dans votre poche.</em></h1>
       <p class="ar" dir="rtl" lang="ar">أدوات رقمية بسيطة في خدمة مهنيي الصحة</p>
       <p class="lead">Des applications claires, rapides et gratuites pour les professionnels de santé, même sans connexion.</p>
