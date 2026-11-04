@@ -1,0 +1,17 @@
+{
+  "id": "/",
+  "name": "Assist Apps",
+  "short_name": "Assist Apps",
+  "description": "Applications de poche pour les professionnels de santé, par JawaDev. Gratuites, hors ligne, non officielles.",
+  "lang": "fr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0d2438",
+  "theme_color": "#0d2438",
+  "icons": [
+    { "src": "/assets/assist-apps-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/assist-apps-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/assist-apps-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
