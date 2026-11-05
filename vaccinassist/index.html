@@ -597,6 +597,8 @@ textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 4px var(--glow-b
 .fiche a { display: inline-block; text-decoration: none; color: #fff; font-weight: 700; font-size: .85rem; padding: 8px 18px; border-radius: 99px; background: linear-gradient(135deg, var(--grad-a), var(--grad-b)); }
 .annonce { position: fixed; left: 12px; right: 12px; bottom: calc(92px + env(safe-area-inset-bottom, 0px)); z-index: 31; max-width: 520px; margin: 0 auto; display: grid; grid-template-columns: 46px minmax(0, 1fr); gap: 6px 12px; align-items: center; padding: 16px; border-radius: 22px; color: #fff; background: linear-gradient(135deg, #13304a, #0b7c83); box-shadow: 0 22px 46px -16px rgb(0 0 0 / .55); animation: upd-in .4s cubic-bezier(.2, .9, .3, 1.2); }
 .annonce[hidden] { display: none; }
+.vnew { display: block; padding: 8px 10px; border-radius: 12px; background: var(--surface-2); color: var(--ink); line-height: 1.45; }
+.vnew i { font-style: normal; font-size: .68rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: #fff; background: #c2457c; border-radius: 6px; padding: 2px 6px; margin-right: 6px; }
 .annonce .sl-i { grid-row: span 2; width: 46px; height: 46px; border-radius: 14px; }
 .annonce b { font-family: var(--font-display); font-size: .98rem; }
 .annonce small { font-size: .8rem; line-height: 1.4; color: rgb(255 255 255 / .85); }
@@ -1182,9 +1184,10 @@ textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 4px var(--glow-b
     </div>
     <div class="card"><h3>Où notifier&nbsp;?</h3>
       <div class="contact"><b>AMMPS, Centre National des Vigilances</b>
+        <span class="vnew"><i>Nouveau</i> Depuis novembre 2026, l’AMMPS propose <b>VigiMobile</b> pour notifier en ligne les effets indésirables des médicaments et des vaccins (professionnels et citoyens), accessible depuis le site de l’AMMPS. La fiche papier reste valable.</span>
         <span>En ligne : <a href="https://vigiflow-eforms.who-umc.org/ma/vaccin" target="_blank" rel="noopener">vigiflow-eforms.who-umc.org/ma/vaccin</a>. Exporter le PDF pour garder une copie.</span>
         <span>Fiche papier (site <a href="https://ammps.sante.gov.ma/" target="_blank" rel="noopener">ammps.sante.gov.ma</a>) à envoyer à <a href="mailto:vaccinovigilance@ammps.sante.gov.ma">vaccinovigilance@ammps.sante.gov.ma</a> ou <a href="mailto:vaccinovigilance@ammps.gov.ma">vaccinovigilance@ammps.gov.ma</a>.</span>
-        <span class="src">Circulaire ROTASIIL-Liquid® (DP/19)</span></div>
+        <span class="src">Circulaire ROTASIIL-Liquid® (DP/19) · Lancement de VigiMobile, maroc.ma (nov. 2026)</span></div>
       <div class="contact"><b>CAPM, Centre Anti Poison et de Pharmacovigilance</b>
         <a class="callbtn" href="tel:0801000180">Appeler le 0 801 000 180</a>
         <span>24 h/24, 7 j/7. Fax : 05 37 77 71 79. Site : www.capm.ma</span>
@@ -2809,6 +2812,11 @@ renderTdInputs(); renderChild(); renderFemme(); renderTables(); renderCounts(); 
 // ---- Campagnes nationales : affichées après « Commencer », chacune entre ses dates de début et de fin ----
 // Pour ajouter une campagne : une entrée dans CAMPAGNES et son image dans www/img/. Aucune connexion utilisée.
 const CAMPAGNES = [
+  { id:'vigimobile-2026', debut:'2026-11-05', fin:'2026-12-31', img:'img/campagne-vigimobile.jpg', pos:'50% 45%', acc:'#1d6fc0', deep:'#0a2440',
+    chip:'Med Safety Week 2026', org:'AMMPS',
+    quand:'Lancée le 4 nov. 2026', titre:'VigiMobile : notifier les effets indésirables en ligne', ar:'منصة VigiMobile للتبليغ عن الآثار غير المرغوب فيها للأدوية واللقاحات',
+    msg:'Des outils simples et à portée de main.',
+    action:'Notifier tout EIPV via VigiMobile, accessible depuis le site de l’AMMPS, ou avec la fiche papier. Les parents peuvent aussi notifier.', ico:'#i-alert' },
   { id:'bronchiolite-2026', debut:'2026-10-19', fin:'2026-12-31', img:'img/campagne-bronchiolite.jpg', pos:'50% 40%', acc:'#c4574a', deep:'#3a1410',
     quand:'19 oct. 2026 → 19 avr. 2027', titre:'Bronchiolite chez l’enfant de moins de 2 ans', ar:'الحملة الوطنية للتصدي لالتهاب القصيبات الهوائية عند الأطفال دون سن الثانية',
     msg:'Éviter la fumée et les irritants, garder un environnement propre et bien aéré, éviter le contact avec les malades, se laver les mains régulièrement.',
@@ -2833,10 +2841,10 @@ window.campagnes = (() => {
     box.style.setProperty('--st-acc', c.acc); box.style.setProperty('--st-deep', c.deep); box.style.setProperty('--st-pos', c.pos);
     $('#st-bg').style.backgroundImage = `url(${c.img})`;
     const im = $('#st-img'); im.src = c.img; im.style.animation = 'none'; void im.offsetWidth; im.style.animation = '';
-    $('#st-n').textContent = `${i + 1} sur ${C.length} · Ministère de la Santé`;
+    $('#st-n').textContent = `${i + 1} sur ${C.length} · ${c.org || 'Ministère de la Santé'}`;
     const last = i === C.length - 1;
     body.innerHTML = `
-      <div class="st-chips"><span class="st-chip acc">Campagne nationale</span><span class="st-chip"><svg class="i" aria-hidden="true"><use href="#i-calendar"/></svg>${c.quand}</span></div>
+      <div class="st-chips"><span class="st-chip acc">${c.chip || 'Campagne nationale'}</span><span class="st-chip"><svg class="i" aria-hidden="true"><use href="#i-calendar"/></svg>${c.quand}</span></div>
       <h2>${c.titre}</h2>
       <p class="st-ar" dir="rtl" lang="ar">${c.ar}</p>
       <p class="st-quote">« ${c.msg} »</p>
