@@ -1,5 +1,5 @@
 // Vaccin'Assist : fonctionnement hors ligne. Changer VERSION à chaque mise à jour du site.
-const VERSION = 'va-app-9';
+const VERSION = 'va-app-10';
 const CORE = [
   './', 'index.html', 'suivi-couverture.html', 'manifest.webmanifest',
   'fonts/Alexandria-arabic.woff2',

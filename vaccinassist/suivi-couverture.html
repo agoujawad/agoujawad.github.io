@@ -124,6 +124,32 @@ h3 { margin: 4px 0 0; font-size: .8rem; text-transform: uppercase; letter-spacin
 .toast { font-size: .82rem; font-weight: 700; color: var(--ok); }
 footer { font-size: .75rem; color: var(--muted); display: grid; gap: 4px; }
 @media (prefers-reduced-motion: no-preference) { svg .ln { transition: opacity .3s; } }
+
+.printbar { display: flex; flex-wrap: wrap; gap: 8px; }
+.phd { display: none; }
+@media print {
+  @page { size: A4 landscape; margin: 9mm; }
+  :root, :root[data-theme="dark"] { --bg: #fff; --surface: #fff; --surface-2: #eef3f4; --line: #b9c9cd; --ink: #000; --muted: #444; --ideal: #000;
+    --p1: #3b3fbf; --p3: #c8352d; --rr: #1f9d55; --ok: #157a4a; --ok-bg: #e3f4ea; --warn: #8a4a08; --warn-bg: #fbeed8; --bad: #a11d28; --bad-bg: #fbe2e4; color-scheme: light; }
+  body { background: #fff; font-size: 11px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  header.band, #ex, .noprint, .printbar, .toast, footer span:last-child { display: none !important; }
+  .wrap { max-width: none; padding: 0; display: block; }
+  .wrap > * { margin-bottom: 8px; }
+  .phd { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; border-bottom: 2px solid #000; padding-bottom: 4px; }
+  .phd b { font-size: 15px; font-family: var(--font-display); }
+  .phd span { font-size: 11px; }
+  .card { border: 1px solid #b9c9cd; border-radius: 8px; padding: 8px 10px; gap: 6px; display: block; }
+  .card > * + * { margin-top: 6px; }
+  .chartbox, .wall, .tiles { break-inside: avoid; }
+  .tiles { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+  .tile { padding: 6px 8px; } .tile .v { font-size: 1.15rem; }
+  .months { overflow: visible; margin: 0; }
+  svg.chart { min-width: 0; width: auto; height: 86mm; margin: 0 auto; }
+  .card:has(#verdict) { break-before: page; }
+  .wall { width: 100%; } .wall th, .wall td { font-size: 8px; padding: 2px 3px; }
+  .grid4 { gap: 6px; }
+  footer { font-size: 9px; color: #444; }
+}
 </style>
 </head>
 <body>
@@ -141,7 +167,9 @@ footer { font-size: .75rem; color: var(--muted); display: grid; gap: 4px; }
     <button type="button" class="btn ghost" id="ex-clear">Commencer avec mes données</button>
   </div>
 
-  <section class="card">
+  <div class="phd" id="phd"></div>
+
+  <section class="card noprint">
     <h2><span class="step">ÉTAPE 1</span>Population cible <small>enfants de moins d’un an</small></h2>
     <div class="fields">
       <label for="fs">Formation sanitaire<input id="fs" type="text" placeholder="Ex. CS urbain …" autocomplete="off"></label>
@@ -158,7 +186,7 @@ footer { font-size: .75rem; color: var(--muted); display: grid; gap: 4px; }
     <div class="target" id="target"></div>
   </section>
 
-  <section class="card">
+  <section class="card noprint">
     <h2><span class="step">ÉTAPE 2</span>Doses administrées par mois</h2>
     <p class="note">Chiffres de la fiche journalière ou du registre. Laissez vide un mois non encore terminé.</p>
     <div class="months">
@@ -185,6 +213,7 @@ footer { font-size: .75rem; color: var(--muted); display: grid; gap: 4px; }
     <div class="chartbox"><svg class="chart" id="chart" viewBox="0 0 640 340" role="img" aria-label="Graphique de suivi de la couverture vaccinale"></svg></div>
     <div class="months"><table class="wall" id="wall"></table></div>
     <p class="note">Le gris est l’écart entre Penta1 et Penta3 : plus il s’élargit, plus il y a d’abandons.</p>
+    <div class="printbar"><button type="button" class="btn" data-print>Imprimer ou enregistrer en PDF</button></div>
   </section>
 
   <section class="card">
@@ -195,9 +224,10 @@ footer { font-size: .75rem; color: var(--muted); display: grid; gap: 4px; }
     <ul class="recos" id="recos"></ul>
   </section>
 
-  <section class="card">
+  <section class="card noprint">
     <div class="actions">
-      <button type="button" class="btn" id="copy">Copier le résumé</button>
+      <button type="button" class="btn" data-print>Imprimer ou enregistrer en PDF</button>
+      <button type="button" class="btn ghost" id="copy">Copier le résumé</button>
       <button type="button" class="btn danger" id="reset">Effacer les données</button>
     </div>
     <div class="confirm" id="confirm" hidden>Effacer toutes les données saisies sur ce téléphone ?
@@ -395,6 +425,19 @@ $('#reset').addEventListener('click', () => { $('#confirm').hidden = false; });
 $('#reset-no').addEventListener('click', () => { $('#confirm').hidden = true; });
 $('#reset-yes').addEventListener('click', () => { try { localStorage.removeItem(KEY); } catch (e) {} S = blank(); fill(); render(); $('#confirm').hidden = true; toast('Données effacées'); });
 let tt; function toast(m) { $('#toast').textContent = m; clearTimeout(tt); tt = setTimeout(() => $('#toast').textContent = '', 2500); }
+
+// ---- Impression : tableau mural, graphique, bilan et évaluation (A4 paysage, ou PDF depuis le menu d'impression) ----
+function fillPrintHead() {
+  const r = compute();
+  const esc = t => String(t).replace(/[&<>]/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' })[c]);
+  $('#phd').innerHTML = `<div><b>Suivi de la couverture vaccinale et des abandons</b><br><span>${S.fs && !S.example ? esc(S.fs) + ' · ' : ''}Année ${esc(S.year || '')}${r.n ? ' · situation fin ' + MONTHS[r.last].toLowerCase() : ''}</span></div>`
+    + `<span>${r.cible != null ? `Cible annuelle <b>${nf(r.cible)}</b> · mensuelle <b>${nf(Math.round(r.mensuelle * 10) / 10)}</b>` : ''}</span>`;
+}
+window.addEventListener('beforeprint', fillPrintHead);
+document.querySelectorAll('[data-print]').forEach(b => b.addEventListener('click', () => {
+  fillPrintHead();
+  try { window.print(); } catch (e) { toast('Impression non disponible sur cet appareil'); }
+}));
 $('#copy').addEventListener('click', () => {
   const txt = summary(compute());
   const fallback = () => { const a = $('#copytxt'); a.hidden = false; a.value = txt; a.style.width = '100%'; a.rows = 8; a.select(); toast('Sélectionnez et copiez le texte ci-dessous'); };
