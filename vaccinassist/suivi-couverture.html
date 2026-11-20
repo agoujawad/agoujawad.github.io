@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Suivi de la couverture · Vaccin’Assist</title>
+<meta name="description" content="Suivi de la couverture vaccinale Penta1 et Penta3, taux d’abandon et graphique mural, selon le Manuel pratique PNI. Outil personnel, non officiel.">
+<meta name="theme-color" content="#0a86d8">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+/* Mise en page : bandeau Vaccin'Assist, puis une colonne de cartes (saisie → bilan → graphique mural → évaluation) */
+:root {
+  --bg: #eef4f5; --surface: #ffffff; --surface-2: #e6eff1; --line: #d3e1e4;
+  --ink: #10262e; --muted: #557079;
+  --grad-a: #00b5a3; --grad-b: #0a7fc4; --accent: #0a8f9a;
+  --p1: #4b4fc9; --p3: #d6453d; --rr: #1f9d55; --ideal: #10262e;
+  --ok: #157a4a; --ok-bg: #dff3e8; --warn: #a3580a; --warn-bg: #fdf0dc; --bad: #b4232f; --bad-bg: #fde4e6;
+  --font-brand: "Montserrat Alternates", "Sora", "Segoe UI", system-ui, sans-serif;
+  --font-display: "Sora", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Plus Jakarta Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0b1a20; --surface: #12262e; --surface-2: #183039; --line: #24414b;
+  --ink: #e5f1f3; --muted: #93adb5; --accent: #34c6c0;
+  --p1: #8f93ff; --p3: #ff7a70; --rr: #4fd18a; --ideal: #e5f1f3;
+  --ok: #5fd896; --ok-bg: #133827; --warn: #f2b25c; --warn-bg: #3a2a12; --bad: #ff8a92; --bad-bg: #3d1a1e; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0b1a20; --surface: #12262e; --surface-2: #183039; --line: #24414b;
+  --ink: #e5f1f3; --muted: #93adb5; --accent: #34c6c0;
+  --p1: #8f93ff; --p3: #ff7a70; --rr: #4fd18a; --ideal: #e5f1f3;
+  --ok: #5fd896; --ok-bg: #133827; --warn: #f2b25c; --warn-bg: #3a2a12; --bad: #ff8a92; --bad-bg: #3d1a1e; color-scheme: dark; }
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+img, svg { max-width: 100%; }
+body { margin: 0; -webkit-text-size-adjust: 100%; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 15px; line-height: 1.5; }
+.wrap { max-width: 760px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 0 40px; display: grid; gap: 14px; }
+header.band { background: linear-gradient(135deg, var(--grad-a), var(--grad-b)); color: #fff; border-radius: 0 0 26px 26px; }
+header.band .in { max-width: 760px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 22px 22px; display: grid; gap: 6px; }
+.brand { font-family: var(--font-brand); font-size: .85rem; opacity: .9; letter-spacing: .01em; }
+h1 { margin: 0; font-family: var(--font-display); font-size: 1.55rem; line-height: 1.2; text-wrap: balance; }
+header p { margin: 0; font-size: .9rem; opacity: .92; max-width: 60ch; }
+.back { justify-self: start; display: inline-flex; align-items: center; gap: 6px; color: #fff; text-decoration: none; font-weight: 700; font-size: .85rem; padding: 6px 12px 6px 10px; border-radius: 99px; background: rgb(255 255 255 / .18); border: 1px solid rgb(255 255 255 / .35); margin-bottom: 4px; }
+.proto { justify-self: start; font-size: .7rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; padding: 3px 10px; border-radius: 99px; background: rgb(255 255 255 / .18); border: 1px solid rgb(255 255 255 / .35); }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 16px; display: grid; gap: 12px; min-width: 0; }
+.card h2 { margin: 0; font-family: var(--font-display); font-size: 1.05rem; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.card h2 small { font-family: var(--font-body); font-weight: 500; font-size: .8rem; color: var(--muted); }
+.step { font-family: var(--font-mono); font-size: .72rem; color: var(--accent); letter-spacing: .04em; }
+.note { margin: 0; font-size: .82rem; color: var(--muted); }
+
+.example { border: 1.5px dashed var(--warn); background: var(--warn-bg); color: var(--warn); border-radius: 16px; padding: 10px 12px; font-size: .85rem; font-weight: 600; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+.example b { text-transform: uppercase; letter-spacing: .05em; font-size: .72rem; background: var(--warn); color: var(--surface); padding: 2px 8px; border-radius: 99px; margin-right: 6px; }
+
+.fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.fields .full { grid-column: 1 / -1; }
+label { display: grid; gap: 4px; font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); min-width: 0; }
+input, select { font: inherit; font-size: 1rem; text-transform: none; letter-spacing: 0; color: var(--ink); background: var(--surface-2); border: 1px solid var(--line); border-radius: 12px; padding: 9px 11px; width: 100%; min-width: 0; }
+input:focus-visible, select:focus-visible, button:focus-visible { outline: 3px solid color-mix(in srgb, var(--accent) 45%, transparent); outline-offset: 1px; }
+.seg { display: inline-grid; grid-auto-flow: column; background: var(--surface-2); border: 1px solid var(--line); border-radius: 99px; padding: 3px; }
+.seg button { font: inherit; font-size: .82rem; font-weight: 700; border: 0; background: transparent; color: var(--muted); padding: 7px 12px; border-radius: 99px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 4px rgb(0 0 0 / .12); }
+.target { display: flex; gap: 8px 18px; flex-wrap: wrap; font-size: .9rem; }
+.target span b { font-family: var(--font-mono); font-size: 1.05rem; }
+
+.months { overflow-x: auto; margin: 0 -4px; }
+table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+.entry th, .entry td { padding: 4px; text-align: center; }
+.entry thead th { font-size: .72rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); font-weight: 700; }
+.entry tbody th { text-align: left; font-weight: 700; font-size: .88rem; white-space: nowrap; padding-right: 8px; }
+.entry input { text-align: center; padding: 7px 4px; font-family: var(--font-mono); font-size: .95rem; }
+.entry .cum { font-family: var(--font-mono); font-size: .78rem; color: var(--muted); }
+.dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 5px; vertical-align: 1px; }
+
+.tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.tile { border-radius: 16px; padding: 12px; background: var(--surface-2); display: grid; gap: 2px; align-content: start; }
+.tile .v { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.tile .k { font-size: .78rem; font-weight: 700; }
+.tile .s { font-size: .75rem; color: var(--muted); }
+.tile.ok { background: var(--ok-bg); color: var(--ok); }
+.tile.bad { background: var(--bad-bg); color: var(--bad); }
+.tile.ok .s, .tile.bad .s { color: inherit; opacity: .85; }
+@media (min-width: 620px) { .tiles { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+.chartbox { overflow-x: auto; }
+svg.chart { width: 100%; min-width: 520px; height: auto; display: block; }
+svg .gl { stroke: var(--line); stroke-width: 1; }
+svg .ax { fill: var(--muted); font-family: var(--font-mono); font-size: 11px; }
+svg .axb { fill: var(--ink); font-family: var(--font-body); font-size: 11px; font-weight: 700; }
+.legend { display: flex; gap: 6px 16px; flex-wrap: wrap; font-size: .82rem; font-weight: 600; }
+.legend i { display: inline-block; width: 22px; height: 0; border-top: 3px dashed; vertical-align: 4px; margin-right: 6px; }
+.legend i.solid { border-top-style: solid; }
+
+.wall th, .wall td { border: 1px solid var(--line); padding: 5px 6px; font-size: .78rem; text-align: center; white-space: nowrap; }
+.wall thead th { background: var(--surface-2); font-weight: 700; }
+.wall tbody th { text-align: left; background: var(--surface-2); }
+.wall td.cu { font-family: var(--font-mono); font-weight: 700; }
+
+.verdict { border-radius: 16px; padding: 14px; display: grid; gap: 6px; }
+.verdict.c1 { background: var(--ok-bg); color: var(--ok); }
+.verdict.c2, .verdict.c3 { background: var(--warn-bg); color: var(--warn); }
+.verdict.c4 { background: var(--bad-bg); color: var(--bad); }
+.verdict .cat { font-family: var(--font-mono); font-size: .75rem; letter-spacing: .05em; text-transform: uppercase; }
+.verdict b { font-family: var(--font-display); font-size: 1.1rem; }
+.verdict p { margin: 0; font-size: .88rem; color: inherit; }
+.grid4 { display: grid; grid-template-columns: auto 1fr 1fr; gap: 4px; font-size: .78rem; text-align: center; }
+.grid4 div { padding: 7px 4px; border-radius: 8px; background: var(--surface-2); }
+.grid4 .h { background: transparent; font-weight: 700; color: var(--muted); }
+.grid4 .on { outline: 2.5px solid var(--accent); font-weight: 800; }
+.recos { margin: 0; padding-left: 20px; display: grid; gap: 6px; font-size: .9rem; }
+.recos li::marker { color: var(--accent); }
+h3 { margin: 4px 0 0; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+
+.actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.btn { font: inherit; font-weight: 700; font-size: .9rem; border: 0; border-radius: 99px; padding: 10px 18px; cursor: pointer; color: #fff; background: linear-gradient(135deg, var(--grad-a), var(--grad-b)); }
+.btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+.btn.danger { background: transparent; color: var(--bad); border: 1px solid var(--bad); }
+.confirm { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; font-size: .85rem; font-weight: 600; color: var(--bad); }
+[hidden] { display: none !important; }
+.toast { font-size: .82rem; font-weight: 700; color: var(--ok); }
+footer { font-size: .75rem; color: var(--muted); display: grid; gap: 4px; }
+@media (prefers-reduced-motion: no-preference) { svg .ln { transition: opacity .3s; } }
+</style>
+</head>
+<body>
+
+
+<header class="band"><div class="in">
+  <a class="back" href="./">← Vaccin’Assist</a>
+  <h1>Suivi de la couverture vaccinale et des abandons</h1>
+  <p>Saisissez chaque mois les doses de Penta1 et Penta3 : le graphique mural, le taux d’abandon, l’évaluation et les recommandations se calculent seuls.</p>
+</div></header>
+
+<main class="wrap">
+  <div class="example" id="ex" hidden>
+    <span><b>Exemple</b>Données de l’exemple du Manuel PNI (cible 156). Saisissez vos propres chiffres : l’exemple sera effacé.</span>
+    <button type="button" class="btn ghost" id="ex-clear">Commencer avec mes données</button>
+  </div>
+
+  <section class="card">
+    <h2><span class="step">ÉTAPE 1</span>Population cible <small>enfants de moins d’un an</small></h2>
+    <div class="fields">
+      <label for="fs">Formation sanitaire<input id="fs" type="text" placeholder="Ex. CS urbain …" autocomplete="off"></label>
+      <label for="year">Année<input id="year" type="number" inputmode="numeric" min="2000" max="2100"></label>
+      <div class="full" style="display:grid;gap:6px">
+        <span class="note">Je connais :</span>
+        <div class="seg" id="mode" role="group" aria-label="Mode de calcul">
+          <button type="button" data-v="cible" aria-pressed="true">La population cible</button>
+          <button type="button" data-v="totale" aria-pressed="false">La population totale</button>
+        </div>
+      </div>
+      <label class="full" for="pop" id="pop-l">Population cible annuelle (− 1 an)<input id="pop" type="number" inputmode="numeric" min="0"></label>
+    </div>
+    <div class="target" id="target"></div>
+  </section>
+
+  <section class="card">
+    <h2><span class="step">ÉTAPE 2</span>Doses administrées par mois</h2>
+    <p class="note">Chiffres de la fiche journalière ou du registre. Laissez vide un mois non encore terminé.</p>
+    <div class="months">
+      <table class="entry">
+        <thead><tr><th scope="col">Mois</th><th scope="col"><span class="dot" style="background:var(--p1)"></span>Penta1</th><th scope="col"><span class="dot" style="background:var(--p3)"></span>Penta3</th><th scope="col"><span class="dot" style="background:var(--rr)"></span>RR1 <small>(facultatif)</small></th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card" id="res">
+    <h2><span class="step">BILAN</span><span id="res-t">Bilan</span></h2>
+    <div class="tiles" id="tiles"></div>
+  </section>
+
+  <section class="card">
+    <h2><span class="step">GRAPHIQUE</span>À reporter sur le tableau mural</h2>
+    <div class="legend">
+      <span><i class="solid" style="border-color:var(--ideal)"></i>Progression idéale</span>
+      <span><i style="border-color:var(--p1)"></i>Penta1 (cumulé)</span>
+      <span><i style="border-color:var(--p3)"></i>Penta3 (cumulé)</span>
+      <span id="lg-rr"><i style="border-color:var(--rr)"></i>RR1 (cumulé)</span>
+    </div>
+    <div class="chartbox"><svg class="chart" id="chart" viewBox="0 0 640 340" role="img" aria-label="Graphique de suivi de la couverture vaccinale"></svg></div>
+    <div class="months"><table class="wall" id="wall"></table></div>
+    <p class="note">Le gris est l’écart entre Penta1 et Penta3 : plus il s’élargit, plus il y a d’abandons.</p>
+  </section>
+
+  <section class="card">
+    <h2><span class="step">ÉVALUATION</span>Accès et utilisation</h2>
+    <div id="verdict"></div>
+    <div class="grid4" id="grid4"></div>
+    <h3>Recommandations</h3>
+    <ul class="recos" id="recos"></ul>
+  </section>
+
+  <section class="card">
+    <div class="actions">
+      <button type="button" class="btn" id="copy">Copier le résumé</button>
+      <button type="button" class="btn danger" id="reset">Effacer les données</button>
+    </div>
+    <div class="confirm" id="confirm" hidden>Effacer toutes les données saisies sur ce téléphone ?
+      <button type="button" class="btn danger" id="reset-yes">Oui, effacer</button>
+      <button type="button" class="btn ghost" id="reset-no">Annuler</button></div>
+    <span class="toast" id="toast" role="status"></span>
+    <textarea id="copytxt" hidden></textarea>
+  </section>
+
+  <footer>
+    <span>Méthode : Manuel pratique PNI 2016, « Monitorage des performances » p. 88 à 94 (d’après « La vaccination en pratique », OMS/IVB/04.06). Seuils de l’exercice du manuel : accès bon si couverture Penta1 &gt; 80 %, utilisation bonne si taux d’abandon &lt; 5 %.</span>
+    <span>Les chiffres restent dans ce téléphone : aucun nom, aucune donnée d’enfant. Application non officielle, initiative personnelle indépendante de tout organisme public.</span>
+  </footer>
+</main>
+
+<script>
+const MONTHS = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+const SHORT = ['Janv','Fév','Mars','Avril','Mai','Juin','Juil','Août','Sept','Oct','Nov','Déc'];
+const KEY = 'vaccinassist-suivi-couverture';
+const $ = s => document.querySelector(s);
+const blank = () => ({ fs:'', year:new Date().getFullYear(), mode:'cible', pop:'', m: Array.from({length:12}, () => ({ p1:'', p3:'', rr:'' })), example:false });
+// Exemple du Manuel PNI 2016 p. 88 (cible 156, Penta1 et Penta3 jusqu'en août)
+const EXAMPLE = () => { const s = blank(); s.pop = 156; s.example = true; s.fs = 'Exemple du manuel';
+  [6,5,4,9,10,7,3,12].forEach((v,i) => s.m[i].p1 = v); [4,5,3,6,7,6,0,10].forEach((v,i) => s.m[i].p3 = v); return s; };
+let S;
+try { S = JSON.parse(localStorage.getItem(KEY)) || EXAMPLE(); } catch (e) { S = EXAMPLE(); }
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
+const num = v => (v === '' || v == null || isNaN(+v)) ? null : Math.max(0, Math.round(+v));
+const pct = (a, b) => b ? a * 100 / b : null;
+const f1 = x => x == null ? '–' : (Math.round(x * 10) / 10).toLocaleString('fr-FR') + ' %';
+const nf = x => x == null ? '–' : x.toLocaleString('fr-FR');
+
+function leaveExample() { if (S.example) { const y = S.year; S = blank(); S.year = y; } }
+
+function buildRows() {
+  $('#rows').innerHTML = MONTHS.map((m, i) => `<tr><th scope="row">${m}</th>
+    ${['p1','p3','rr'].map(k => `<td><input id="m${i}-${k}" type="number" inputmode="numeric" min="0" data-i="${i}" data-k="${k}" aria-label="${m} ${k==='p1'?'Penta1':k==='p3'?'Penta3':'RR1'}"><div class="cum" id="c${i}-${k}"></div></td>`).join('')}</tr>`).join('');
+}
+function fill() {
+  $('#fs').value = S.fs; $('#year').value = S.year; $('#pop').value = S.pop;
+  $('#mode').querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.v === S.mode));
+  $('#pop-l').firstChild.textContent = S.mode === 'cible' ? 'Population cible annuelle (− 1 an)' : 'Population totale desservie';
+  S.m.forEach((r, i) => ['p1','p3','rr'].forEach(k => { $(`#m${i}-${k}`).value = r[k]; }));
+  $('#ex').hidden = !S.example;
+}
+
+function compute() {
+  const pop = num(S.pop);
+  const cible = pop == null ? null : (S.mode === 'cible' ? pop : Math.round(pop * 0.04));
+  const cum = { p1:[], p3:[], rr:[] }; let last = -1; const acc = { p1:0, p3:0, rr:0 }; let hasRR = false;
+  S.m.forEach((r, i) => { const any = num(r.p1) != null || num(r.p3) != null || num(r.rr) != null; if (any) last = i; });
+  S.m.forEach((r, i) => { ['p1','p3','rr'].forEach(k => { const v = num(r[k]); if (k === 'rr' && v != null) hasRR = true; acc[k] += v ?? 0; cum[k][i] = i <= last ? acc[k] : null; }); });
+  const n = last + 1;
+  const C = k => n ? cum[k][last] : 0;
+  const objDate = cible != null && n ? cible * n / 12 : null;
+  const r = { cible, mensuelle: cible != null ? cible / 12 : null, last, n, cum, hasRR,
+    p1: C('p1'), p3: C('p3'), rr: C('rr'), objDate };
+  r.covP1 = objDate ? pct(r.p1, objDate) : null;
+  r.covP3 = objDate ? pct(r.p3, objDate) : null;
+  r.covP1an = cible ? pct(r.p1, cible) : null;
+  r.ab = r.p1 ? pct(r.p1 - r.p3, r.p1) : null;
+  r.abRR = r.p1 && hasRR ? pct(r.p1 - r.rr, r.p1) : null;
+  r.nonvac = objDate != null ? Math.max(0, Math.round(objDate - r.p3)) : null;
+  r.access = r.covP1 == null ? null : r.covP1 > 80;
+  r.use = r.ab == null ? null : r.ab < 5;
+  r.cat = r.access == null || r.use == null ? null : r.access ? (r.use ? 1 : 2) : (r.use ? 3 : 4);
+  return r;
+}
+
+function render() {
+  const r = compute();
+  $('#target').innerHTML = r.cible == null ? '<span class="note">Saisissez la population pour calculer la cible.</span>'
+    : `<span>Cible annuelle <b>${nf(r.cible)}</b></span><span>Cible mensuelle <b>${nf(Math.round(r.mensuelle * 10) / 10)}</b></span>${S.mode === 'totale' ? '<span class="note">4 % de la population totale (Manuel PNI)</span>' : ''}`;
+  // cumuls sous chaque saisie
+  S.m.forEach((_, i) => ['p1','p3','rr'].forEach(k => { const c = r.cum[k][i]; $(`#c${i}-${k}`).textContent = c != null && (k !== 'rr' || r.hasRR) ? 'cumul ' + c : ''; }));
+  $('#res-t').textContent = r.n ? `Fin ${MONTHS[r.last].toLowerCase()} ${S.year || ''}` : 'Aucun mois saisi';
+  const tile = (v, k, s, cls = '') => `<div class="tile ${cls}"><span class="v">${v}</span><span class="k">${k}</span><span class="s">${s}</span></div>`;
+  $('#tiles').innerHTML = !r.n ? '<p class="note">Saisissez au moins un mois.</p>' : [
+    tile(f1(r.covP1), 'Couverture Penta1', `${nf(r.p1)} doses / objectif à date ${r.objDate ? nf(Math.round(r.objDate)) : '–'}`, r.access == null ? '' : r.access ? 'ok' : 'bad'),
+    tile(f1(r.covP3), 'Couverture Penta3', `${nf(r.p3)} doses · ${f1(r.covP1an)} de la cible annuelle en Penta1`),
+    tile(f1(r.ab), 'Abandon Penta1–Penta3', `${nf(r.p1 - r.p3)} enfant(s) · seuil 5 %`, r.use == null ? '' : r.use ? 'ok' : 'bad'),
+    r.hasRR ? tile(f1(r.abRR), 'Abandon Penta1–RR1', `${nf(r.p1 - r.rr)} enfant(s)`, r.abRR == null ? '' : r.abRR < 5 ? 'ok' : 'bad')
+            : tile(nf(r.nonvac), 'Restent à vacciner', 'Penta3 par rapport à l’objectif à date'),
+  ].join('');
+  $('#lg-rr').hidden = !r.hasRR;
+  drawChart(r); drawWall(r); drawVerdict(r);
+  return r;
+}
+
+function drawChart(r) {
+  const W = 640, H = 340, L = 46, R = 48, T = 14, B = 34;
+  const pw = W - L - R, ph = H - T - B;
+  const ymax = Math.max(r.cible || 0, r.p1, r.p3, r.rr, 12);
+  const top = r.cible && r.cible >= Math.max(r.p1, r.p3, r.rr) ? r.cible : Math.ceil(ymax / 12) * 12;
+  const x = i => L + pw * i / 12, y = v => T + ph - ph * v / top;
+  let g = '';
+  for (let k = 0; k <= 12; k++) { const yy = T + ph * k / 12; g += `<line class="gl" x1="${L}" x2="${W - R}" y1="${yy}" y2="${yy}"/>`; }
+  for (let i = 0; i <= 12; i++) g += `<line class="gl" x1="${x(i)}" x2="${x(i)}" y1="${T}" y2="${T + ph}"/>`;
+  for (let k = 0; k <= 12; k += 3) { const v = top * k / 12; g += `<text class="ax" x="${L - 6}" y="${y(v) + 4}" text-anchor="end">${Math.round(v)}</text>`; }
+  if (r.cible) for (const p of [0, 25, 50, 75, 100]) g += `<text class="ax" x="${W - R + 6}" y="${y(r.cible * p / 100) + 4}">${p} %</text>`;
+  SHORT.forEach((m, i) => g += `<text class="axb" x="${x(i + .5)}" y="${H - 12}" text-anchor="middle">${m}</text>`);
+  if (r.cible) g += `<line x1="${x(0)}" y1="${y(0)}" x2="${x(12)}" y2="${y(r.cible)}" stroke="var(--ideal)" stroke-width="2.5"/>`;
+  const pts = k => [[x(0), y(0)], ...r.cum[k].map((c, i) => c == null ? null : [x(i + 1), y(c)]).filter(Boolean)];
+  if (r.n) {
+    const a = pts('p1'), b = pts('p3');
+    g += `<polygon points="${[...a, ...b.slice().reverse()].map(p => p.join(',')).join(' ')}" fill="var(--muted)" fill-opacity=".14"/>`;
+    const line = (k, col) => { const p = pts(k); return `<polyline class="ln" points="${p.map(q => q.join(',')).join(' ')}" fill="none" stroke="${col}" stroke-width="2.5" stroke-dasharray="7 5"/>` +
+      p.slice(1).map(q => `<circle cx="${q[0]}" cy="${q[1]}" r="4" fill="var(--surface)" stroke="${col}" stroke-width="2.5"/>`).join(''); };
+    g += line('p1', 'var(--p1)') + line('p3', 'var(--p3)') + (r.hasRR ? line('rr', 'var(--rr)') : '');
+    const e = pts('p1').at(-1); g += `<text class="axb" x="${e[0] + 6}" y="${e[1] - 8}" fill="var(--p1)" style="fill:var(--p1)">${r.p1}</text>`;
+    const f = pts('p3').at(-1); g += `<text class="axb" x="${f[0] + 6}" y="${f[1] + 16}" style="fill:var(--p3)">${r.p3}</text>`;
+  } else g += `<text class="ax" x="${L + pw / 2}" y="${T + ph / 2}" text-anchor="middle">Les courbes apparaîtront après la saisie du premier mois</text>`;
+  $('#chart').innerHTML = g;
+}
+
+function drawWall(r) {
+  const head = '<thead><tr><th></th>' + SHORT.map(m => `<th>${m}</th><th>Total cumulé</th>`).join('') + '</tr></thead>';
+  const row = (lbl, k) => `<tr><th scope="row">${lbl}</th>` + S.m.map((m, i) => `<td>${num(m[k]) ?? ''}</td><td class="cu">${r.cum[k][i] ?? ''}</td>`).join('') + '</tr>';
+  const ab = '<tr><th scope="row">Nombre d’abandons</th>' + S.m.map((_, i) => `<td></td><td class="cu">${r.cum.p1[i] != null ? r.cum.p1[i] - r.cum.p3[i] : ''}</td>`).join('') + '</tr>';
+  const tx = '<tr><th scope="row">Taux d’abandons</th>' + S.m.map((_, i) => `<td></td><td class="cu">${r.cum.p1[i] ? Math.round((r.cum.p1[i] - r.cum.p3[i]) * 100 / r.cum.p1[i]) + ' %' : ''}</td>`).join('') + '</tr>';
+  $('#wall').innerHTML = head + '<tbody>' + row('Penta 1', 'p1') + row('Penta 3', 'p3') + ab + tx + '</tbody>';
+}
+
+const RECO = {
+  use: [
+    'Expliquer à chaque mère pourquoi revenir, et lui donner la date et la nature de la prochaine vaccination (inscrite sur le carnet).',
+    'Repérer les enfants qui ont reçu Penta1 sans Penta3 (registre, échéancier) et organiser la relance des défaillants.',
+    'Éviter les fausses contre-indications : rhume, IRA, diarrhée ou fièvre < 38 °C ne contre-indiquent pas la vaccination.',
+    'Vérifier l’accueil et l’organisation : attente, continuité des séances, ruptures de stock de vaccins.',
+  ],
+  access: [
+    'Vérifier que les séances ont lieu comme prévu, à des jours et horaires commodes, et qu’elles sont bien annoncées.',
+    'Mobiliser la communauté (collectivité locale, écoles, associations, mosquées) pour repérer et orienter les enfants non vaccinés.',
+    'Contrôler l’état vaccinal à chaque contact, quel que soit le motif de la visite, pour ne pas manquer d’occasion de vacciner.',
+    'Identifier les localités éloignées ou mal desservies et y prévoir des stratégies adaptées (sorties, équipes mobiles).',
+  ],
+  good: [
+    'Maintenir l’organisation actuelle et continuer le suivi mensuel du graphique.',
+    'Continuer à contrôler l’état vaccinal à chaque contact pour éviter les occasions manquées.',
+  ],
+};
+const CAT = {
+  1: ['Catégorie 1', 'Pas de problème', 'Bon accès et bonne utilisation des services de vaccination.'],
+  2: ['Catégorie 2', 'Abandons trop nombreux', 'Les enfants commencent la série (bon accès) mais beaucoup ne la terminent pas.'],
+  3: ['Catégorie 3', 'Problème d’accès', 'Trop peu d’enfants commencent la série, mais ceux qui la commencent la terminent.'],
+  4: ['Catégorie 4', 'Accès et abandons', 'Trop peu d’enfants commencent la série, et beaucoup ne la terminent pas.'],
+};
+function drawVerdict(r) {
+  if (!r.cat) {
+    $('#verdict').innerHTML = `<p class="note">${r.cible == null ? 'Saisissez la population cible' : 'Saisissez au moins un mois avec du Penta1'} pour obtenir l’évaluation.</p>`;
+    $('#grid4').innerHTML = ''; $('#recos').innerHTML = ''; return;
+  }
+  const c = CAT[r.cat];
+  $('#verdict').innerHTML = `<div class="verdict c${r.cat}"><span class="cat">${c[0]}</span><b>${c[1]}</b><p>${c[2]}</p>
+    <p>Couverture Penta1 ${f1(r.covP1)} de l’objectif à fin ${MONTHS[r.last].toLowerCase()} · abandon Penta1–Penta3 ${f1(r.ab)}.</p></div>`;
+  const on = (a, u) => r.access === a && r.use === u ? ' on' : '';
+  $('#grid4').innerHTML = `<div class="h"></div><div class="h">Abandon &lt; 5 %</div><div class="h">Abandon &gt; 5 %</div>
+    <div class="h">Couverture Penta1 &gt; 80 %</div><div class="${on(true, true)}">Cat. 1</div><div class="${on(true, false)}">Cat. 2</div>
+    <div class="h">Couverture Penta1 &lt; 80 %</div><div class="${on(false, true)}">Cat. 3</div><div class="${on(false, false)}">Cat. 4</div>`;
+  const list = r.cat === 1 ? RECO.good : r.cat === 2 ? RECO.use : r.cat === 3 ? RECO.access : [...RECO.access.slice(0, 2), ...RECO.use.slice(0, 2)];
+  const extra = r.ab != null && r.ab < 0 ? ['Penta3 dépasse Penta1 : vérifier la saisie, ou des enfants vaccinés en Penta1 ailleurs ou l’an dernier (rattrapage).'] : [];
+  $('#recos').innerHTML = [...extra, ...list].map(t => `<li>${t}</li>`).join('');
+}
+
+function summary(r) {
+  const lines = [`Suivi de la couverture vaccinale ${S.year || ''}${S.fs && !S.example ? ' · ' + S.fs : ''}`,
+    `Fin ${r.n ? MONTHS[r.last].toLowerCase() : '–'} · cible annuelle ${nf(r.cible)} (mensuelle ${r.mensuelle ? nf(Math.round(r.mensuelle * 10) / 10) : '–'})`,
+    `Penta1 cumulé ${nf(r.p1)} · couverture ${f1(r.covP1)} de l’objectif à date`,
+    `Penta3 cumulé ${nf(r.p3)} · couverture ${f1(r.covP3)}`,
+    `Abandons Penta1–Penta3 : ${nf(r.p1 - r.p3)} (${f1(r.ab)})`];
+  if (r.hasRR) lines.push(`Abandons Penta1–RR1 : ${nf(r.p1 - r.rr)} (${f1(r.abRR)})`);
+  if (r.cat) lines.push(`Évaluation : ${CAT[r.cat][0]}, ${CAT[r.cat][1].toLowerCase()}`);
+  lines.push('Calculé avec Vaccin’Assist (méthode du Manuel PNI)');
+  return lines.join('\n');
+}
+
+buildRows(); fill(); render();
+
+document.addEventListener('input', e => {
+  const t = e.target; if (!t.matches('input')) return;
+  const val = t.value;
+  if (S.example) { leaveExample(); fill(); t.value = val; }
+  if (t.dataset.k) S.m[+t.dataset.i][t.dataset.k] = val;
+  else if (t.id === 'pop') S.pop = val;
+  else if (t.id === 'year') S.year = val;
+  else if (t.id === 'fs') S.fs = val;
+  $('#ex').hidden = !S.example;
+  save(); render();
+});
+$('#mode').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return;
+  if (S.example) { leaveExample(); }
+  S.mode = b.dataset.v; fill(); save(); render(); });
+$('#ex-clear').addEventListener('click', () => { leaveExample(); fill(); save(); render(); $('#pop').focus(); });
+$('#reset').addEventListener('click', () => { $('#confirm').hidden = false; });
+$('#reset-no').addEventListener('click', () => { $('#confirm').hidden = true; });
+$('#reset-yes').addEventListener('click', () => { try { localStorage.removeItem(KEY); } catch (e) {} S = blank(); fill(); render(); $('#confirm').hidden = true; toast('Données effacées'); });
+let tt; function toast(m) { $('#toast').textContent = m; clearTimeout(tt); tt = setTimeout(() => $('#toast').textContent = '', 2500); }
+$('#copy').addEventListener('click', () => {
+  const txt = summary(compute());
+  const fallback = () => { const a = $('#copytxt'); a.hidden = false; a.value = txt; a.style.width = '100%'; a.rows = 8; a.select(); toast('Sélectionnez et copiez le texte ci-dessous'); };
+  try { navigator.clipboard.writeText(txt).then(() => toast('Résumé copié'), fallback); } catch (e) { fallback(); }
+});
+</script>
+<script>if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});</script>
+<script data-goatcounter="https://assistapps.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>

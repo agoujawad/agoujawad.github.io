@@ -2624,6 +2624,9 @@ function openMore() {
   $('#more-site').innerHTML = siteLink(SITE, 'Nouveautés, documents et autres applications sur <span style="white-space:nowrap">assist-apps.ma</span>', '', true);
   $('#more-tiles').innerHTML = MORE.map(k => `<button type="button" class="tile" data-k="${k}" aria-current="${navState.screen === k}" style="${navState.screen === k ? 'color:' + SCOLOR[k] : ''}">
     <span class="ti" style="background:${SCOLOR[k]}">${icon(ICONS[k])}</span><b lang="fr" style="color:var(--ink)">${NAV[k].title.replace('Supplémentation', 'Supplé&shy;mentation')}</b><small>${NAV[k].sub}</small></button>`).join('');
+  // Outil : suivi de la couverture vaccinale (page séparée)
+  $('#more-tiles').insertAdjacentHTML('beforeend', `<a class="tile" href="suivi-couverture.html" style="text-decoration:none">
+    <span class="ti" style="background:#14866d">${icon('pulse')}</span><b lang="fr" style="color:var(--ink)">Suivi de la couverture</b><small>Penta1, Penta3, abandons et graphique mural</small></a>`);
   // 6e case : rubrique en préparation (montre que l'application s'enrichit à chaque mise à jour)
   $('#more-tiles').insertAdjacentHTML('beforeend', `<button type="button" class="tile soon" id="more-soon">
     <span class="ti">${icon('bolt')}</span><b lang="fr">Bientôt</b></button>`);

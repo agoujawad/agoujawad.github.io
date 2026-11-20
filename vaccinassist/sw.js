@@ -1,7 +1,7 @@
 // Vaccin'Assist : fonctionnement hors ligne. Changer VERSION à chaque mise à jour du site.
-const VERSION = 'va-app-7';
+const VERSION = 'va-app-8';
 const CORE = [
-  './', 'index.html', 'manifest.webmanifest',
+  './', 'index.html', 'suivi-couverture.html', 'manifest.webmanifest',
   'fonts/Alexandria-arabic.woff2',
   'fonts/JetBrainsMono-480c0625.woff2',
   'fonts/JetBrainsMono-ba16536d.woff2',
@@ -40,9 +40,10 @@ self.addEventListener('fetch', e => {
   const req = e.request;
   if (req.method !== 'GET' || new URL(req.url).origin !== location.origin) return;
   if (req.mode === 'navigate') {
+    const page = /suivi-couverture\.html$/.test(new URL(req.url).pathname) ? 'suivi-couverture.html' : 'index.html';
     e.respondWith(fetch(req).then(r => {
-      const copy = r.clone(); caches.open(VERSION).then(c => c.put('index.html', copy)); return r;
-    }).catch(() => caches.match('index.html')));
+      const copy = r.clone(); caches.open(VERSION).then(c => c.put(page, copy)); return r;
+    }).catch(() => caches.match(page)));
     return;
   }
   if (req.headers.has('range')) return;
