@@ -121,6 +121,10 @@ h3 { margin: 4px 0 0; font-size: .8rem; text-transform: uppercase; letter-spacin
 .btn.danger { background: transparent; color: var(--bad); border: 1px solid var(--bad); }
 .confirm { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; font-size: .85rem; font-weight: 600; color: var(--bad); }
 [hidden] { display: none !important; }
+.checks { display: grid; gap: 6px; }
+.checks div { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; padding: 8px 12px; border-radius: 12px; background: var(--surface-2); font-size: .85rem; }
+.checks b { font-family: var(--font-mono); white-space: nowrap; }
+.checks .ok { background: var(--ok-bg); color: var(--ok); } .checks .bad { background: var(--bad-bg); color: var(--bad); }
 .parts { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 18px; padding: 5px; }
 .parts button { font: inherit; font-weight: 700; font-size: .95rem; border: 0; border-radius: 14px; padding: 10px 8px; background: transparent; color: var(--muted); cursor: pointer; display: grid; justify-items: center; gap: 1px; }
 .parts button small { font-weight: 500; font-size: .72rem; }
@@ -152,6 +156,7 @@ footer { font-size: .75rem; color: var(--muted); display: grid; gap: 4px; }
   svg.chart { min-width: 0; width: auto; height: 86mm; margin: 0 auto; }
   .card:has(#verdict), .rrsec { break-before: page; }
   .rr-off { display: none !important; }
+  .rr-eval { break-inside: avoid; }
   .wall { width: 100%; } .wall th, .wall td { font-size: 8px; padding: 2px 3px; }
   .grid4 { gap: 6px; }
   footer { font-size: 9px; color: #444; }
@@ -256,6 +261,15 @@ footer { font-size: .75rem; color: var(--muted); display: grid; gap: 4px; }
     <div class="chartbox"><svg class="chart" id="chart-rr" viewBox="0 0 640 340" role="img" aria-label="Graphique de suivi RR1 et RR2"></svg></div>
     <div class="months"><table class="wall" id="wall-rr"></table></div>
     <p class="note">Le gris est l’écart entre RR1 et RR2 : les enfants qui ont reçu RR1 mais pas encore RR2. Seuil d’abandon : 5 %.</p>
+  </section>
+
+  <section class="card part-r rr-eval" id="rr-ev">
+    <h2><span class="step">ÉVALUATION RR</span>Couverture et abandons</h2>
+    <div id="rr-verdict"></div>
+    <div class="checks" id="rr-checks"></div>
+    <h3>Recommandations</h3>
+    <ul class="recos" id="rr-recos"></ul>
+    <p class="note">Repères du PNI (Recommandations 2023) : couverture d’au moins 95 %, taux d’abandon inférieur à 5 %. La grille en 4 catégories du manuel ne concerne que le Penta.</p>
   </section>
 
   <section class="card noprint">
@@ -454,8 +468,47 @@ function renderRR(r) {
     tile(f1(r.abR2), 'Abandon RR1–RR2', `${nf(r.rr - r.rr2)} enfant(s) · seuil 5 %`, okb(r.abR2)),
     tile(f1(r.abRR), 'Abandon Penta1–RR1', r.abRR == null ? 'Saisir le Penta1 dans la partie Penta' : `${nf(r.p1atR - r.rr)} enfant(s) · Penta1 de la partie Penta`, okb(r.abRR)),
   ].join('');
+  drawRREval(r);
   drawCurves('#chart-rr', r, r.nR, [['rr', 'var(--rr)', r.rr], ['rr2', 'var(--rr2)', r.rr2]]);
   $('#wall-rr').innerHTML = wallHtml(r, 'rr', 'rr2', 'RR 1', 'RR 2');
+}
+
+// Évaluation RR : repères du PNI (Recommandations 2023) — couverture ≥ 95 %, abandon < 5 %
+const RR_RECO = {
+  cov: [
+    'Vérifier que les séances se tiennent périodiquement, au bon moment et dans un endroit facile d’accès.',
+    'Contrôler l’état vaccinal de tout enfant à chaque contact avec la formation sanitaire et rattraper immédiatement le RR manquant.',
+    'Renforcer la mobilisation sociale et, pour les localités éloignées, les activités itinérantes.',
+    'Discuter du problème avec le superviseur et décider ensemble des mesures à prendre.',
+  ],
+  ab: [
+    'Informer chaque mère de la date de la 2e dose de RR (18 mois) et l’inscrire sur le carnet.',
+    'Préparer la liste des enfants attendus pour RR2, puis identifier et relancer les retardataires à partir du registre.',
+    'Minimiser les occasions manquées : vérifier le statut vaccinal lors de toute consultation.',
+    'Réduire les fausses contre-indications : rhume, diarrhée ou fièvre légère ne contre-indiquent pas le RR.',
+  ],
+  good: ['Maintenir l’organisation actuelle et continuer le suivi mensuel du graphique RR.'],
+};
+function drawRREval(r) {
+  $('#rr-ev').classList.toggle('rr-off', !r.hasRR);
+  if (!r.hasRR) { $('#rr-verdict').innerHTML = '<p class="note">Saisissez les doses de RR pour obtenir l’évaluation.</p>'; $('#rr-checks').innerHTML = ''; $('#rr-recos').innerHTML = ''; return; }
+  const cov = r.covR1 == null ? null : r.covR1 >= 95;
+  const ab = r.abR2 == null ? null : r.abR2 < 5;
+  const ab1 = r.abRR == null ? null : r.abRR < 5;
+  const row = (k, v, ok) => `<div class="${ok == null ? '' : ok ? 'ok' : 'bad'}"><span>${k}</span><b>${v}</b></div>`;
+  $('#rr-checks').innerHTML = row('Couverture RR1 (objectif à date, repère ≥ 95 %)', f1(r.covR1), cov)
+    + row('Abandon RR1–RR2 (repère < 5 %)', f1(r.abR2), ab)
+    + (r.abRR != null ? row('Abandon Penta1–RR1 (repère < 5 %)', f1(r.abRR), ab1) : '');
+  const covBad = cov === false, abBad = ab === false || ab1 === false;
+  const v = cov == null ? ['', 'Population cible manquante', 'Saisissez la population cible à l’étape 1 pour évaluer la couverture.']
+    : !covBad && !abBad ? ['c1', 'Pas de problème', 'Couverture RR1 atteinte et peu d’abandons.']
+    : covBad && !abBad ? ['c2', 'Couverture RR1 insuffisante', 'Trop peu d’enfants reçoivent RR1 par rapport à l’objectif.']
+    : !covBad && abBad ? ['c2', 'Abandons trop nombreux', 'Les enfants reçoivent RR1, mais trop peu reviennent pour la dose suivante.']
+    : ['c4', 'Couverture et abandons', 'Trop peu d’enfants reçoivent RR1, et trop peu reviennent pour RR2.'];
+  $('#rr-verdict').innerHTML = `<div class="verdict ${v[0]}"><b>${v[1]}</b><p>${v[2]}</p></div>`;
+  const list = covBad && abBad ? [...RR_RECO.cov.slice(0, 2), ...RR_RECO.ab.slice(0, 2)] : covBad ? RR_RECO.cov : abBad ? RR_RECO.ab : cov == null ? [] : RR_RECO.good;
+  const extra = r.abR2 != null && r.abR2 < 0 ? ['RR2 dépasse RR1 : vérifier la saisie, ou des enfants ayant reçu RR1 l’an dernier ou ailleurs.'] : [];
+  $('#rr-recos').innerHTML = [...extra, ...list].map(t => `<li>${t}</li>`).join('');
 }
 
 function summary(r) {
@@ -468,6 +521,7 @@ function summary(r) {
     lines.push(`RR1 cumulé ${nf(r.rr)} · couverture ${f1(r.covR1)} ; RR2 cumulé ${nf(r.rr2)} · couverture ${f1(r.covR2)}`);
     lines.push(`Abandons RR1–RR2 : ${nf(r.rr - r.rr2)} (${f1(r.abR2)})`);
     if (r.abRR != null) lines.push(`Abandons Penta1–RR1 : ${nf(r.p1atR - r.rr)} (${f1(r.abRR)})`);
+    const vt = document.querySelector('#rr-verdict b'); if (vt) lines.push(`Évaluation RR : ${vt.textContent.toLowerCase()}`);
   }
   if (r.cat) lines.push(`Évaluation : ${CAT[r.cat][0]}, ${CAT[r.cat][1].toLowerCase()}`);
   lines.push('Calculé avec Vaccin’Assist (méthode du Manuel PNI)');
