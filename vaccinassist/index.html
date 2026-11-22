@@ -763,7 +763,7 @@ textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 4px var(--glow-b
       <img class="sp-logo" id="sp-logo" alt="">
       <h2 class="sp-name">Vaccin'Assist</h2>
       <p class="sp-tag">Votre guide complet pour la gestion de la vaccination dans le cadre du PNI</p>
-      <span class="sp-beta">Version 1.0</span>
+      <span class="sp-beta">Version 1.1</span>
       <button type="button" class="sp-go" id="sp-go">Commencer <svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></button>
       <button type="button" class="sp-vid" id="sp-vid"><svg class="i" aria-hidden="true"><use href="#i-play"/></svg>Comment ça marche ? Voir la vidéo</button>
     </div>
@@ -781,7 +781,7 @@ textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 4px var(--glow-b
         <div class="hacts">
           <button type="button" class="hbtn hbtn-ic" id="open-news" aria-label="Nouveautés" title="Nouveautés"><svg class="i" aria-hidden="true"><use href="#i-bell"/></svg><i class="ndot" id="news-dot" hidden></i></button>
           <button type="button" class="hbtn hbtn-ic" id="open-menu" aria-label="Plus d’options" title="Plus d’options" aria-haspopup="menu" aria-expanded="false" aria-controls="hmenu"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></button>
-          <span class="hver" aria-label="Version 1.0">v1.0</span>
+          <span class="hver" aria-label="Version 1.1">v1.1</span>
           <div class="hmenu" id="hmenu" role="menu" hidden>
             <button type="button" class="hmi" role="menuitem" id="open-search"><svg class="i" aria-hidden="true"><use href="#i-search"/></svg><span>Rechercher</span></button>
             <button type="button" class="hmi" role="menuitem" id="open-faq"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg><span>Questions fréquentes</span></button>
@@ -1575,7 +1575,7 @@ textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 4px var(--glow-b
         <li>Aucune donnée d’enfant ou de patient n’est enregistrée.</li>
       </ul>
       <p class="warnline" style="color:var(--ink);background:var(--surface-2)">Outil d’aide à la pratique : il ne remplace pas les guides officiels ni l’avis médical. Application non officielle, initiative personnelle indépendante de tout organisme public.</p>
-      <p class="note" style="margin:0"><span class="beta">v1.0</span> Une erreur ou une idée ? Écrivez-nous dans « Suggestions ».</p>
+      <p class="note" style="margin:0"><span class="beta">v1.1</span> Une erreur ou une idée ? Écrivez-nous dans « Suggestions ».</p>
     </div>
   </section>
 
@@ -1615,7 +1615,7 @@ textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 4px var(--glow-b
   </section>
 
   <footer>
-    Outil d'aide à la pratique : il ne remplace pas les guides officiels ni l'avis médical. Version 1.0.
+    Outil d'aide à la pratique : il ne remplace pas les guides officiels ni l'avis médical. Version 1.1.
     Les références utilisées sont dans « Guides et Documents ».
   </footer>
     </main>
@@ -2628,7 +2628,7 @@ function openMore() {
     <span class="ti" style="background:${SCOLOR[k]}">${icon(ICONS[k])}</span><b lang="fr" style="color:var(--ink)">${NAV[k].title.replace('Supplémentation', 'Supplé&shy;mentation')}</b><small>${NAV[k].sub}</small></button>`).join('');
   // Outil : suivi de la couverture vaccinale (page séparée)
   $('#more-tiles').insertAdjacentHTML('beforeend', `<a class="tile" href="suivi-couverture.html" style="text-decoration:none">
-    <span class="ti" style="background:#14866d">${icon('pulse')}</span><b lang="fr" style="color:var(--ink)">Suivi de la couverture</b><small>Penta1, Penta3, abandons et graphique mural</small></a>`);
+    <span class="ti" style="background:#14866d">${icon('pulse')}</span><b lang="fr" style="color:var(--ink)">Suivi de la couverture</b><small>Penta, Rougeole-Rubéole, abandons et graphique mural</small></a>`);
   // 6e case : rubrique en préparation (montre que l'application s'enrichit à chaque mise à jour)
   $('#more-tiles').insertAdjacentHTML('beforeend', `<button type="button" class="tile soon" id="more-soon">
     <span class="ti">${icon('bolt')}</span><b lang="fr">Bientôt</b></button>`);
@@ -2817,12 +2817,12 @@ renderTdInputs(); renderChild(); renderFemme(); renderTables(); renderCounts(); 
 // ---- Campagnes nationales : affichées après « Commencer », chacune entre ses dates de début et de fin ----
 // Pour ajouter une campagne : une entrée dans CAMPAGNES et son image dans www/img/. Aucune connexion utilisée.
 const CAMPAGNES = [
-  { id:'suivi-couverture-2026', debut:'2026-11-20', fin:'2026-12-31', img:'img/campagne-suivi-couverture.jpg', pos:'50% 45%', acc:'#14866d', deep:'#06302b',
-    chip:'Nouveau dans l’application', org:'Vaccin’Assist',
-    quand:'Depuis le 20 nov. 2026', titre:'Suivi de la couverture vaccinale et des abandons', ar:'جديد: تتبع التغطية التلقيحية ونسبة الانقطاع',
-    msg:'Saisissez chaque mois vos doses de Penta1 et Penta3 : tout le reste se calcule seul.',
-    action:'Couverture, taux d’abandon, graphique mural et recommandations, selon le Manuel pratique PNI. Les chiffres restent dans votre téléphone.', ico:'#i-pulse',
-    lien:'suivi-couverture.html', lienT:'Ouvrir l’outil' },
+  { id:'version-1-1-2026', debut:'2026-11-22', fin:'2026-12-31', img:'img/campagne-version-1-1.jpg', pos:'50% 0%', acc:'#14866d', deep:'#06302b',
+    chip:'Nouvelle version 1.1', org:'Vaccin’Assist',
+    quand:'Depuis le 22 nov. 2026', titre:'Vaccin’Assist 1.1 : les nouveautés', ar:'النسخة 1.1: جديد التطبيق',
+    msg:'Nouvel outil « Suivi de la couverture » : Penta et Rougeole-Rubéole, taux d’abandon, graphique mural, évaluation et impression en PDF.',
+    action:'Rattrapage : règle des vaccins vivants (BCG, RR). Documents : « Rattrapage vaccinal et suivi de la couverture », PNI 2023, complet (62 pages).', ico:'#i-pulse',
+    lien:'suivi-couverture.html', lienT:'Ouvrir le suivi' },
   { id:'vigimobile-2026', debut:'2026-11-05', fin:'2026-12-31', img:'img/campagne-vigimobile.jpg', pos:'50% 45%', acc:'#1d6fc0', deep:'#0a2440',
     chip:'Med Safety Week 2026', org:'AMMPS',
     quand:'Lancée le 4 nov. 2026', titre:'VigiMobile : notifier les effets indésirables en ligne', ar:'منصة VigiMobile للتبليغ عن الآثار غير المرغوب فيها للأدوية واللقاحات',
