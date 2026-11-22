@@ -1651,7 +1651,7 @@ textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 4px var(--glow-b
     <small id="an-s"></small>
     <div class="acts"><button type="button" class="later" id="an-later">Plus tard</button><a class="go" id="an-go" target="_blank" rel="noopener">Découvrir</a></div>
   </div>
-  <button type="button" class="fab" id="fab-mapi" aria-label="MAPI : urgence et notification"><svg class="i" aria-hidden="true"><use href="#i-alert"/></svg>MAPI</button>
+  <button type="button" class="fab" id="fab-mapi" aria-label="EIPV (MAPI) : urgence et notification"><svg class="i" aria-hidden="true"><use href="#i-alert"/></svg>EIPV (MAPI)</button>
 </div>
 </div>
 
@@ -2481,7 +2481,7 @@ const DOCS = [
     { f:'calendrier-femme-td.pdf', t:'Calendrier de vaccination de la femme (Td)', d:'Schéma Td1 à Td5 et femme partiellement vaccinée dans l\u2019enfance.', m:'PDF · 1 page · 0,2 Mo' },
   ]},
   { group: 'Guides du PNI', items: [
-    { f:'manuel-pratique-pni-2016.pdf', t:'Manuel pratique sur la vaccination (2016)', d:'Guide destiné aux professionnels de santé : vaccins, chaîne du froid, sécurité des injections, MAPI.', m:'PDF · 194 pages · 3,9 Mo' },
+    { f:'manuel-pratique-pni-2016.pdf', t:'Manuel pratique sur la vaccination (2016)', d:'Guide destiné aux professionnels de santé : vaccins, chaîne du froid, sécurité des injections, EIPV (MAPI).', m:'PDF · 194 pages · 3,9 Mo' },
     { f:'manuel-pratique-pni-2015.pdf', t:'Manuel pratique sur la vaccination (2015)', d:'Édition précédente du manuel pratique.', m:'PDF · 198 pages · 3,9 Mo' },
     { f:'manuel-pni-2013.pdf', t:'Manuel du PNI (2013)', d:'Édition antérieure du manuel du programme. Son calendrier est ancien : se référer au Calendrier national actuel et au Manuel pratique 2016.', m:'PDF · 130 pages · 2,3 Mo' },
   ]},
@@ -2511,12 +2511,12 @@ const DOCS = [
     { f:'srec-rapport-mensuel.pdf', t:'SREC : rapport mensuel des activités', d:'Rapport mensuel de l\u2019ESSP, dont la partie vaccination (performances et ressources).', m:'PDF · 15 pages · 1 Mo' },
     { f:'srec-definitions-concepts.pdf', t:'SREC : définitions et concepts', d:'Définition de chaque indicateur à remplir. Vaccination : p. 19 à 21.', m:'PDF · 42 pages · 2,3 Mo' },
   ]},
-  { group: 'MAPI (vaccinovigilance)', items: [
+  { group: 'EIPV (MAPI), vaccinovigilance', items: [
     { f:'fiche-notification-eipv-ammps.pdf', t:'Fiche de notification des EIPV (AMMPS)', d:'Fiche du Centre National des Vigilances de l\u2019AMMPS à remplir pour tout événement indésirable post-vaccinal, puis à envoyer à vaccinovigilance@ammps.gov.ma.', m:'PDF · 1 page · 0,6 Mo' },
   ]},
   { group: 'Notes et circulaires', items: [
     { f:'circulaire-hpv.pdf', t:'Circulaire DP-19/2022 : introduction du vaccin HPV', d:'Vaccin GARDASIL® pour les filles de 11 ans et sa fiche technique (contre-indications, administration, EIPV). Le schéma à 2 doses de la circulaire est remplacé par une dose unique.', m:'PDF · 4 pages · 1 Mo' },
-    { f:'circulaire-rotasiil-liquid.pdf', t:'Circulaire DP/19 : ROTASIIL-Liquid®', d:'Nouvelle présentation du vaccin antirotavirus et sa fiche technique (schéma, rattrapage avant 24 mois, MAPI).', m:'PDF · 7 pages · 1,1 Mo' },
+    { f:'circulaire-rotasiil-liquid.pdf', t:'Circulaire DP/19 : ROTASIIL-Liquid®', d:'Nouvelle présentation du vaccin antirotavirus et sa fiche technique (schéma, rattrapage avant 24 mois, EIPV ou MAPI).', m:'PDF · 7 pages · 1,1 Mo' },
   ]},
 ];
 function renderDocs() {
@@ -2586,7 +2586,7 @@ const NAV = {
   faq: { title:'Questions fréquentes', sub:'Les réponses aux questions les plus posées', parts:[ { id:'p-faq' } ] },
   froid: { title:'Chaîne du froid', sub:'Conserver, contrôler et protéger les vaccins entre +2 °C et +8 °C',
     parts:[ { id:'p-froid', l:'Conserver', i:'thermo' }, { id:'p-froid-ctrl', l:'Contrôler', i:'check' }, { id:'p-froid-inc', l:'Incidents', i:'box' } ] },
-  mapi: { title:'MAPI', sub:'Manifestations post-vaccinales indésirables : reconnaître, réagir, notifier',
+  mapi: { title:'EIPV (MAPI)', sub:'Manifestations post-vaccinales indésirables : reconnaître, réagir, notifier',
     parts:[ { id:'p-mapi', l:'Urgence', i:'alert' }, { id:'p-mapi-reac', l:'Réactions', i:'pulse' }, { id:'p-mapi-notif', l:'Notifier', i:'send' } ] },
   seance: { title:'Séance et communication', sub:'Préparer la séance, la conduire et bien parler aux parents',
     parts:[ { id:'p-sea', l:'Préparer', i:'check' }, { id:'p-sea-run', l:'Conduire', i:'list' }, { id:'p-sea-com', l:'Parler', i:'chat' } ] },
@@ -2696,7 +2696,7 @@ function renderAbout() {
   $('#ab-contacts').innerHTML = rows.map(r => r.href
     ? `<a class="ct" href="${r.href}" target="_blank" rel="noopener"><span class="ico" style="background:${r.bg}">${icon(r.ic)}</span><span><small>${r.l}</small><span class="v">${r.v}</span></span><span class="go">${r.go}</span></a>`
     : `<div class="ct todo-ct"><span class="ico" style="background:${r.bg}">${icon(r.ic)}</span><span><small>${r.l}</small><span class="v">Page en cours de préparation</span></span><span></span></div>`).join('');
-  const P = [['routine','Vaccination de routine'],['ratt','Rattrapage'],['secu','Contre-indications'],['prat','Pratique clinique'],['froid','Chaîne du froid'],['mapi','MAPI'],['seance','Séance et communication'],['supp','Supplémentation'],['news','Nouveautés']];
+  const P = [['routine','Vaccination de routine'],['ratt','Rattrapage'],['secu','Contre-indications'],['prat','Pratique clinique'],['froid','Chaîne du froid'],['mapi','EIPV (MAPI)'],['seance','Séance et communication'],['supp','Supplémentation'],['news','Nouveautés']];
   $('#ab-pillars').innerHTML = P.map(([k, l]) => `<li><i style="background:${SCOLOR[k]}"></i>${l}</li>`).join('');
   $('#av-wa').disabled = !C.whatsapp; $('#av-ml').disabled = !C.email;
 }
@@ -2902,7 +2902,7 @@ $('#vid-x').addEventListener('click', closeVid);
 
 // ---- Partager l’application (menu de partage du téléphone) ----
 const SHARE_URL = location.origin + location.pathname.replace(/index\.html$/, '');
-const SHARE_TEXT = 'Vaccin’Assist : guide de poche hors ligne pour la vaccination selon le Programme National d’Immunisation (routine, rattrapage, contre-indications, MAPI, chaîne du froid, supplémentation). Gratuit, sans publicité, aucune donnée enregistrée. Application personnelle, non officielle.';
+const SHARE_TEXT = 'Vaccin’Assist : guide de poche hors ligne pour la vaccination selon le Programme National d’Immunisation (routine, rattrapage, contre-indications, EIPV (MAPI), chaîne du froid, supplémentation). Gratuit, sans publicité, aucune donnée enregistrée. Application personnelle, non officielle.';
 function shareApp() {
   const full = SHARE_TEXT + '\n\nTélécharger : ' + SHARE_URL;
   if (window.AndroidApp && typeof window.AndroidApp.share === 'function') return window.AndroidApp.share(full);
