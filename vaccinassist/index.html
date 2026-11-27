@@ -2817,6 +2817,12 @@ renderTdInputs(); renderChild(); renderFemme(); renderTables(); renderCounts(); 
 // ---- Campagnes nationales : affichées après « Commencer », chacune entre ses dates de début et de fin ----
 // Pour ajouter une campagne : une entrée dans CAMPAGNES et son image dans www/img/. Aucune connexion utilisée.
 const CAMPAGNES = [
+  { id:'grippe-2026', debut:'2026-11-27', fin:'2026-12-27', img:'img/campagne-grippe-2026.jpg', pos:'50% 0%', acc:'#1b6fb5', deep:'#0b2742',
+    chip:'Campagne nationale', org:'Ministère de la Santé',
+    quand:'Du 27 nov. au 27 déc. 2026', titre:'Vaccination annuelle contre la grippe', ar:'التلقيح السنوي ضد الإنفلونزا: مناعة تتجدد وحماية تستمر',
+    msg:'Une immunité qui se renouvelle, une protection qui continue.',
+    action:'Pour les personnes vulnérables, le vaccin réduit le risque de grippe et de complications graves. C’est un moyen sûr et efficace de se protéger.', ico:'#i-shield',
+    lien:'img/affiche-grippe-2026.jpg', lienT:'Voir l’affiche' },
   { id:'version-1-1-2026', debut:'2026-11-22', fin:'2026-12-31', img:'img/campagne-version-1-1b.jpg', pos:'50% 0%', acc:'#14866d', deep:'#06302b',
     chip:'Nouvelle version 1.1', org:'Vaccin’Assist',
     quand:'Depuis le 22 nov. 2026', titre:'Vaccin’Assist 1.1 : les nouveautés', ar:'النسخة 1.1: جديد التطبيق',
@@ -2860,7 +2866,7 @@ window.campagnes = (() => {
       <h2>${c.titre}</h2>
       <p class="st-ar" dir="rtl" lang="ar">${c.ar}</p>
       <p class="st-quote">« ${c.msg} »</p>
-      <div class="st-act"><span class="ic"><svg class="i" aria-hidden="true"><use href="${c.ico}"/></svg></span><p><b>Au centre de santé</b>${c.action}${c.lien ? `<br><a class="st-link" href="${c.lien}"${/^https?:/.test(c.lien) ? ' target="_blank" rel="noopener"' : ''}>${c.lienT || 'Ouvrir'} →</a>` : ''}</p></div>
+      <div class="st-act"><span class="ic"><svg class="i" aria-hidden="true"><use href="${c.ico}"/></svg></span><p><b>Au centre de santé</b>${c.action}${c.lien ? `<br><a class="st-link" href="${c.lien}"${/^https?:|\.(jpe?g|png|pdf)$/.test(c.lien) ? ' target="_blank" rel="noopener"' : ''}>${c.lienT || 'Ouvrir'} →</a>` : ''}</p></div>
       <div class="st-cta"><button type="button" class="st-never" data-a="never">Ne plus afficher</button><button type="button" class="st-go" data-a="go">${last ? 'Compris' : 'Suivante →'}</button></div>`;
     [...bars.children].forEach((b, k) => b.firstChild.style.width = k < i ? '100%' : '0%');
     elapsed = 0; paused = false; t0 = performance.now(); cancelAnimationFrame(raf); raf = requestAnimationFrame(tick);
